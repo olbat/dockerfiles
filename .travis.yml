@@ -25,3 +25,4 @@ env:
   - IMAGE=cupsd
   - IMAGE=debian-pkg
   - IMAGE=libreoffice
+  - IMAGE=java-devel

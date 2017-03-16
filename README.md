@@ -3,4 +3,5 @@
 * [CUPS print server](cupsd/)
 * [Debian packaging tools](debian-pkg/)
 * [GnuPG](gnupg/)
+* [Java development tools](java-devel/)
 * [LibreOffice](libreoffice/)

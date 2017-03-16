@@ -1,0 +1,13 @@
+FROM olbat/debian:unstable
+MAINTAINER devel@olbat.net
+
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update \
+  && apt-get install -y gnupg gnupg-agent openssl monkeysphere \
+  && apt-get clean
+ENV DEBIAN_FRONTEND ""
+
+
+VOLUME "/root/.gnupg/"
+RUN chsh -s /bin/bash
+CMD ["/bin/bash","--login","-i"]

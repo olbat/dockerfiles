@@ -24,3 +24,4 @@ env:
   - IMAGE=gnupg
   - IMAGE=cupsd
   - IMAGE=debian-pkg
+  - IMAGE=libreoffice

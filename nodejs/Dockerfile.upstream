@@ -1,0 +1,41 @@
+FROM olbat/debian:jessie
+MAINTAINER devel@olbat.net
+
+# Install Packages
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update
+# Install basic tools and packages
+RUN apt-get install -y sudo curl
+# Install NodeJS development tools from upstream APT repository
+RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key \
+  | apt-key add -
+RUN echo "deb http://deb.nodesource.com/node_6.x jessie main" \
+  > /etc/apt/sources.list.d/nodejs.list
+RUN apt-get update
+RUN apt-get install -y nodejs git
+ENV DEBIAN_FRONTEND ""
+
+# Add node user
+RUN useradd \
+  --groups=sudo \
+  --create-home \
+  --home-dir=/home/node \
+  --shell=/bin/bash \
+  node
+# Disable sudo password checking for users of the sudo group
+RUN sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
+
+# Clean image
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/* && mkdir /var/lib/apt/lists/partial
+
+# Default volume
+RUN mkdir /data
+VOLUME ["/data","/home/node"]
+
+# Setup environment
+USER node
+WORKDIR /home/node
+
+# Default shell
+CMD ["/bin/bash","--login","-i"]

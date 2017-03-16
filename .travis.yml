@@ -27,3 +27,4 @@ env:
   - IMAGE=libreoffice
   - IMAGE=java-devel
   - IMAGE=java-ides
+  - IMAGE=nodejs

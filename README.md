@@ -6,3 +6,4 @@
 * [Java development tools](java-devel/)
 * [Java IDEs](java-ides/)
 * [LibreOffice](libreoffice/)
+* [Node.js](nodejs/)

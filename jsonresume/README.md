@@ -1,4 +1,4 @@
-# JSON Resume image [![Build Status](https://secure.travis-ci.org/olbat/dockerfiles.png?branch=master)](https://travis-ci.org/olbat/dockerfiles)
+# JSON Resume image [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/olbat/dockerfiles/branches/master/8)](https://travis-ci.org/olbat/dockerfiles)
 
 ## Overview
 Docker image including JSON Resume (see [jsonresume.org](https://jsonresume.org/)).

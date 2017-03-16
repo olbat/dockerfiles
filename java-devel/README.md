@@ -1,4 +1,4 @@
-# Java devel image [![Build Status](https://secure.travis-ci.org/olbat/dockerfiles.png?branch=master)](https://travis-ci.org/olbat/dockerfiles)
+# Java devel image [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/olbat/dockerfiles/branches/master/5)](https://travis-ci.org/olbat/dockerfiles)
 
 ## Overview
 Docker image including Java development tools (installed from the Debian package).

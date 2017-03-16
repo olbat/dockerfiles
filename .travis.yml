@@ -23,3 +23,4 @@ env:
   matrix:
   - IMAGE=gnupg
   - IMAGE=cupsd
+  - IMAGE=debian-pkg

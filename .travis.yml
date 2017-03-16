@@ -29,3 +29,4 @@ env:
   - IMAGE=java-ides
   - IMAGE=nodejs
   - IMAGE=jsonresume
+  - IMAGE=bazel

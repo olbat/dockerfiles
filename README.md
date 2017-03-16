@@ -7,5 +7,6 @@
 * [Java development tools](java-devel/)
 * [Java IDEs](java-ides/)
 * [JSON Resume](jsonresume/)
+* [KCachegrind](kcachegrind/)
 * [LibreOffice](libreoffice/)
 * [Node.js](nodejs/)

@@ -30,3 +30,4 @@ env:
   - IMAGE=nodejs
   - IMAGE=jsonresume
   - IMAGE=bazel
+  - IMAGE=kcachegrind

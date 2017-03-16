@@ -5,5 +5,6 @@
 * [GnuPG](gnupg/)
 * [Java development tools](java-devel/)
 * [Java IDEs](java-ides/)
+* [JSON Resume](jsonresume/)
 * [LibreOffice](libreoffice/)
 * [Node.js](nodejs/)

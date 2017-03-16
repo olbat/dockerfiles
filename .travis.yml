@@ -28,3 +28,4 @@ env:
   - IMAGE=java-devel
   - IMAGE=java-ides
   - IMAGE=nodejs
+  - IMAGE=jsonresume

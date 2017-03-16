@@ -1,4 +1,4 @@
-# Java IDEs image
+# Java IDEs image [![Build Status](https://secure.travis-ci.org/olbat/dockerfiles.png?branch=master)](https://travis-ci.org/olbat/dockerfiles)
 
 ## Overview
 Docker image including Java IDEs (installed from the Debian package).

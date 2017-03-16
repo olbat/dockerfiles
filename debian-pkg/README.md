@@ -1,4 +1,4 @@
-# Debian packaging image
+# Debian packaging image [![Build Status](https://secure.travis-ci.org/olbat/dockerfiles.png?branch=master)](https://travis-ci.org/olbat/dockerfiles)
 
 ## Overview
 Docker image including Debian development and packaging tools.

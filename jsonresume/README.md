@@ -1,4 +1,4 @@
-# JSON Resume image
+# JSON Resume image [![Build Status](https://secure.travis-ci.org/olbat/dockerfiles.png?branch=master)](https://travis-ci.org/olbat/dockerfiles)
 
 ## Overview
 Docker image including JSON Resume (see [jsonresume.org](https://jsonresume.org/)).

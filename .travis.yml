@@ -26,3 +26,4 @@ env:
   - IMAGE=debian-pkg
   - IMAGE=libreoffice
   - IMAGE=java-devel
+  - IMAGE=java-ides

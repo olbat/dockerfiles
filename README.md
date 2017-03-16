@@ -4,4 +4,5 @@
 * [Debian packaging tools](debian-pkg/)
 * [GnuPG](gnupg/)
 * [Java development tools](java-devel/)
+* [Java IDEs](java-ides/)
 * [LibreOffice](libreoffice/)

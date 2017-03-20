@@ -3,7 +3,10 @@ MAINTAINER devel@olbat.net
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
-  && apt-get install -y gnupg gnupg-agent openssl monkeysphere git secure-delete \
+  && apt-get install -y gnupg gnupg-agent openssl \
+    monkeysphere hopenpgp-tools \
+    gnupg-curl monkeysphere hopenpgp-tools \
+    secure-delete git \
   && apt-get clean
 ENV DEBIAN_FRONTEND ""
 

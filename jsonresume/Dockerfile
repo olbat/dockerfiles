@@ -2,7 +2,8 @@ FROM olbat/nodejs:upstream
 MAINTAINER devel@olbat.net
 
 # Install the resume and themes packages (from the website)
-RUN sudo npm install -g resume-cli \
+RUN sudo npm install -g \
+  resume-cli \
   jsonresume-theme-elegant \
   jsonresume-theme-paper \
   jsonresume-theme-kendall \

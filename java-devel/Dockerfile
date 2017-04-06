@@ -1,32 +1,29 @@
 FROM olbat/debian:stretch
 MAINTAINER devel@olbat.net
 
-# Install Packages
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update
-# Install basic tools and packages
-RUN apt-get install -y sudo git curl gcc
-# Install Java development tools
-RUN apt-get install -y openjdk-8-jdk maven ant ivy gradle
-ENV DEBIAN_FRONTEND ""
+# Install Packages (basic and Java development tools)
+RUN apt-get update \
+&& apt-get install -y \
+  sudo \
+  git \
+  curl \
+  gcc \
+  openjdk-8-jdk \
+  maven \
+  ant \
+  ivy \
+  gradle \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
 
-# Add java user
+# Add java user and disable sudo password checking
 RUN useradd \
   --groups=sudo \
   --create-home \
   --home-dir=/home/java \
   --shell=/bin/bash \
-  java
-# Disable sudo password checking for users of the sudo group
-RUN sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
-
-# Clean image
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* && mkdir /var/lib/apt/lists/partial
-
-# Default volume
-RUN mkdir /data
-VOLUME ["/data","/home/java"]
+  java \
+&& sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
 
 # Setup environment
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64

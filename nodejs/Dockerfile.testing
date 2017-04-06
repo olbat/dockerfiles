@@ -1,32 +1,24 @@
 FROM olbat/debian:testing
 MAINTAINER devel@olbat.net
 
-# Install Packages
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update
-# Install basic tools and packages
-RUN apt-get install -y sudo curl
-# Install NodeJS development tools
-RUN apt-get install -y nodejs-legacy npm
-ENV DEBIAN_FRONTEND ""
+# Install Packages (basic and NodeJS development tools)
+RUN apt-get update \
+&& apt-get install -y \
+  sudo \
+  curl \
+  nodejs-legacy \
+  npm \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
 
-# Add node user
+# Add node user and disable sudo password checking
 RUN useradd \
   --groups=sudo \
   --create-home \
   --home-dir=/home/node \
   --shell=/bin/bash \
-  node
-# Disable sudo password checking for users of the sudo group
-RUN sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
-
-# Clean image
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* && mkdir /var/lib/apt/lists/partial
-
-# Default volume
-RUN mkdir /data
-VOLUME ["/data","/home/node"]
+  node \
+&& sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
 
 # Setup environment
 USER node

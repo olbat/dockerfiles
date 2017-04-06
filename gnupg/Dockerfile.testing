@@ -1,13 +1,17 @@
 FROM olbat/debian:testing
 MAINTAINER devel@olbat.net
 
-ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
-  && apt-get install -y gnupg gnupg-agent openssl \
-    monkeysphere hopenpgp-tools \
-    git secure-delete \
-  && apt-get clean
-ENV DEBIAN_FRONTEND ""
+&& apt-get install -y \
+  gnupg \
+  gnupg-agent \
+  openssl \
+  monkeysphere \
+  hopenpgp-tools \
+  git \
+  secure-delete \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
 
 # Fetch and verify the sks-keyserver.net keyserver CA certificate
 RUN mkdir -p /usr/local/share/ca-certificates/
@@ -15,13 +19,13 @@ ADD https://sks-keyservers.net/sks-keyservers.netCA.pem \
   /usr/local/share/ca-certificates/
 RUN [ $(openssl x509 -fingerprint -noout -in \
     /usr/local/share/ca-certificates/sks-keyservers.netCA.pem | cut -d= -f2) \
-  = "79:1B:27:A3:8E:66:7F:80:27:81:4D:4E:68:E7:C4:78:A4:5D:5A:17" ]
-RUN update-ca-certificates
+  = "79:1B:27:A3:8E:66:7F:80:27:81:4D:4E:68:E7:C4:78:A4:5D:5A:17" ] \
+&& update-ca-certificates
 
 # Copy GnuPG default's configuration file
 COPY gpg.conf /etc/gnupg/gpgconf.conf
-RUN mkdir -p /root/.gnupg
-RUN chmod 700 /root/.gnupg
+RUN mkdir -p /root/.gnupg \
+&& chmod 700 /root/.gnupg
 COPY gpg.conf /root/.gnupg/
 RUN chmod 600 /root/.gnupg/gpg.conf
 

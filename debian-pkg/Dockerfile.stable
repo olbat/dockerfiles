@@ -1,4 +1,4 @@
-FROM olbat/debian:testing
+FROM olbat/debian:stable
 MAINTAINER devel@olbat.net
 
 # Add debian sources repository and install Debian devel. and packaging tools

@@ -15,8 +15,11 @@ RUN apt-get update \
 
 # Fetch and verify the sks-keyserver.net keyserver CA certificate
 RUN mkdir -p /usr/local/share/ca-certificates/
-ADD https://sks-keyservers.net/sks-keyservers.netCA.pem \
-  /usr/local/share/ca-certificates/
+# FIXME: the sks-keyservers.net service cannot be accessed from TravisCI
+#        (see https://github.com/olbat/dockerfiles/issues/1)
+#ADD https://sks-keyservers.net/sks-keyservers.netCA.pem \
+#  /usr/local/share/ca-certificates/
+ADD sks-keyservers.netCA.pem /usr/local/share/ca-certificates/
 RUN [ $(openssl x509 -fingerprint -noout -in \
     /usr/local/share/ca-certificates/sks-keyservers.netCA.pem | cut -d= -f2) \
   = "79:1B:27:A3:8E:66:7F:80:27:81:4D:4E:68:E7:C4:78:A4:5D:5A:17" ] \

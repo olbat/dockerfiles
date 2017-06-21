@@ -23,10 +23,11 @@ RUN sed -i \
   git-buildpackage \
   pristine-tar \
   dh-make \
+  dh-make-golang \
   dh-make-perl \
   python3-stdeb \
+  pypi2deb \
   gem2deb \
-  npm2deb \
   make \
   cmake \
   automake \

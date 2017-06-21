@@ -1,1 +1,1 @@
-Dockerfile.testing
+Dockerfile.stable

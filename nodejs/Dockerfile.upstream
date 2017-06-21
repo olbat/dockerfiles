@@ -1,9 +1,9 @@
-FROM olbat/debian:jessie
+FROM olbat/debian:testing
 MAINTAINER devel@olbat.net
 
 # Install Packages (basic and NodeJS development tools from upstream repository)
 RUN apt-get update \
-&& apt-get install -y curl \
+&& apt-get install -y curl gnupg \
 && curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -\
 && echo "deb http://deb.nodesource.com/node_6.x jessie main" \
   > /etc/apt/sources.list.d/nodejs.list \

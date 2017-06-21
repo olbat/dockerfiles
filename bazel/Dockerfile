@@ -1,4 +1,4 @@
-FROM olbat/debian:testing
+FROM olbat/debian:stable
 MAINTAINER devel@olbat.net
 
 # Install java 8, gpg and bazel package (from upstream repository)

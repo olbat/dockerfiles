@@ -5,11 +5,18 @@ services:
 - docker
 
 before_script:
+# Install the last version of docker
+# (https://docs.travis-ci.com/user/docker/#Installing-a-newer-Docker-version)
+- sudo apt-get update
+- sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+- docker --version
+# Update base images
 - travis_retry docker pull olbat/debian
 - travis_retry docker pull olbat/debian:stable
 - travis_retry docker pull olbat/debian:testing
 - travis_retry docker pull olbat/debian:unstable
-- travis_retry docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWORD
+# Login to the registry in order to be able to push new images
+- travis_retry docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
 script:
 - travis_retry ./build.sh

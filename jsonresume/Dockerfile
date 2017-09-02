@@ -1,4 +1,4 @@
-FROM olbat/nodejs:upstream
+FROM olbat/nodejs
 MAINTAINER devel@olbat.net
 
 # Install the resume and themes packages (from the website)

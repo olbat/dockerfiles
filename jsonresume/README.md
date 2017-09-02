@@ -18,5 +18,5 @@ Docker image including JSON Resume (see [jsonresume.org](https://jsonresume.org/
 * jsonresume-theme-spartan
 * jsonresume-theme-stackoverflow
 
-### Included package (from olbat/nodejs:upstream)
+### Included package (from olbat/nodejs)
 * nodejs

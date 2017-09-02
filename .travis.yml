@@ -39,3 +39,4 @@ env:
   - IMAGE=jsonresume
   - IMAGE=bazel
   - IMAGE=kcachegrind
+  - IMAGE=uncss

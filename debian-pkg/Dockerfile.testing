@@ -1,5 +1,7 @@
-FROM olbat/debian:testing
-MAINTAINER devel@olbat.net
+ARG BASE_USER
+ARG MAINTAINER
+FROM ${BASE_USER}/debian:testing
+MAINTAINER $MAINTAINER
 
 # Add debian sources repository and install Debian devel. and packaging tools
 RUN sed -i \

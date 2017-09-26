@@ -1,5 +1,7 @@
-FROM olbat/debian:stretch
-MAINTAINER devel@olbat.net
+ARG BASE_USER
+ARG MAINTAINER
+FROM ${BASE_USER}/debian:stretch
+MAINTAINER $MAINTAINER
 
 # Install Packages (basic and Java development tools)
 RUN apt-get update \

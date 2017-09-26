@@ -1,5 +1,7 @@
-FROM olbat/nodejs
-MAINTAINER devel@olbat.net
+ARG BASE_USER
+ARG MAINTAINER
+FROM ${BASE_USER}/nodejs
+MAINTAINER $MAINTAINER
 
 # Install the resume and themes packages (from the website)
 RUN sudo npm install -g \

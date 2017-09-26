@@ -1,5 +1,7 @@
-FROM olbat/debian:testing
-MAINTAINER devel@olbat.net
+ARG BASE_USER
+ARG MAINTAINER
+FROM ${BASE_USER}/debian:testing
+MAINTAINER $MAINTAINER
 
 # Install Packages (basic and NodeJS development tools from upstream repository)
 RUN apt-get update \

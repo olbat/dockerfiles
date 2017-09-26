@@ -1,5 +1,7 @@
-FROM olbat/debian:testing
-MAINTAINER devel@olbat.net
+ARG BASE_USER
+ARG MAINTAINER
+FROM ${BASE_USER}/debian:testing
+MAINTAINER $MAINTAINER
 
 # Install kcachegrind
 RUN apt-get update \

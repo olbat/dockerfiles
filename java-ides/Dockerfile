@@ -1,5 +1,7 @@
-FROM olbat/java-devel
-MAINTAINER devel@olbat.net
+ARG BASE_USER
+ARG MAINTAINER
+FROM ${BASE_USER}/java-devel
+MAINTAINER $MAINTAINER
 
 USER root
 # Install Java IDEs

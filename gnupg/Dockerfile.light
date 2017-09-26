@@ -1,9 +1,11 @@
-FROM olbat/debian:stable
-MAINTAINER devel@olbat.net
+ARG BASE_USER
+ARG MAINTAINER
+FROM ${BASE_USER}/debian:stable
+MAINTAINER $MAINTAINER
 RUN apt-get update && apt-get install -y gnupg pinentry-tty
 
 FROM scratch
-MAINTAINER devel@olbat.net
+MAINTAINER $MAINTAINER
 COPY --from=0 /usr/bin/gpg /usr/bin/gpg
 COPY --from=0 /usr/bin/gpg-agent /usr/bin/gpg-agent
 COPY --from=0 /usr/bin/pinentry-tty /usr/bin/pinentry

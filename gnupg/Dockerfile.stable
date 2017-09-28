@@ -7,6 +7,7 @@ RUN apt-get update \
 && apt-get install -y \
   gnupg \
   gnupg-agent \
+  pinentry-tty \
   openssl \
   monkeysphere \
   hopenpgp-tools \

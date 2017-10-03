@@ -24,3 +24,12 @@ __Note__: images are based on the [olbat/debian](https://hub.docker.com/u/olbat/
 ## Dependencies
 * bash
 * docker >= 17.05 (for [moby#31352](moby#31352))
+
+
+## Project's structure
+* Each directory contains dockerfiles used to build a specific image
+* [build.sh](build.sh): builds images and tag them using their directory and the extension of their `Dockerfile` (i.e. the `gnupg/Dockerfile.unstable` is used to build the `$DOCKER_USER/gnupg:unstable` image).
+* [build.env](build.env): contains settings for the `build.sh` script
+* [gen-dockerfiles.sh](gen-dockerfiles.sh): this script is used to generate dockefiles every time a `gen-*.env` file is found in a directory (the Dockerfile is generated using the `gen-$TYPE-dockerfile.sh` script and named `Dockerfile.$TYPE`)
+* [gen-light-dockerfile.sh](gen-light-dockerfiles): this script is used to generate [multi-stage](https://docs.docker.com/engine/userguide/eng-image/multistage-build/) dockefiles used to build light images that only contains a few executables and static files (no system tools, no shell, ...).
+* `*/gen-*.env`: contains settings for the Dockerfile generation scripts

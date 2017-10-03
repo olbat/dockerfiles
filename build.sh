@@ -11,7 +11,7 @@ dir=${IMAGE%/}
 for dockerfile in ${dir:-*}/Dockerfile*
 do
 	[ -e $dockerfile ] || (echo "ERROR: file not found $dockerfile"; exit 1)
-	user=${DOCKER_USER:-olbat}
+	user=${BUILD_USER:-olbat}
 	image=$(dirname "$dockerfile")
 	filename=$(basename "$dockerfile")
 	tag=${filename##*.}

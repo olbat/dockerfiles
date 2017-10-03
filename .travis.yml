@@ -40,3 +40,4 @@ env:
   - IMAGE=bazel
   - IMAGE=kcachegrind
   - IMAGE=uncss
+  - IMAGE=imagemagick

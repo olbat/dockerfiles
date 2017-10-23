@@ -24,7 +24,7 @@ __Note__: images are based on the [olbat/debian](https://hub.docker.com/u/olbat/
 
 ## Dependencies
 * bash
-* docker >= 17.05 (for [moby#31352](moby#31352))
+* docker >= 17.05 (for [moby#31352](https://github.com/moby/moby/pull/31352))
 
 
 ## Project's structure

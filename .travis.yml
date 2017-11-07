@@ -41,3 +41,4 @@ env:
   - IMAGE=kcachegrind
   - IMAGE=uncss
   - IMAGE=imagemagick
+  - IMAGE=sak

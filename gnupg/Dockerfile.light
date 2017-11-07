@@ -4,27 +4,32 @@ FROM scratch
 ARG MAINTAINER
 MAINTAINER $MAINTAINER
 
-COPY --from=base /usr/bin/gpg /usr/bin/gpg
-COPY --from=base /usr/bin/gpg-agent /usr/bin/gpg-agent
-COPY --from=base /usr/bin/pinentry /usr/bin/pinentry
-COPY --from=base /usr/bin/pinentry-tty /usr/bin/pinentry-tty
+COPY --from=base \
+	/usr/bin/gpg \
+	/usr/bin/gpg-agent \
+	/usr/bin/pinentry \
+	/usr/bin/pinentry-tty \
+	/bin/
+
+COPY --from=base /lib64/ld-linux-x86-64.so.2  /lib64/ld-linux-x86-64.so.2 
+
+COPY --from=base \
+	/lib/x86_64-linux-gnu/libbz2.so.1.0  \
+	/lib/x86_64-linux-gnu/libc.so.6  \
+	/lib/x86_64-linux-gnu/libdl.so.2  \
+	/lib/x86_64-linux-gnu/libgcrypt.so.20  \
+	/lib/x86_64-linux-gnu/libgpg-error.so.0  \
+	/lib/x86_64-linux-gnu/libm.so.6  \
+	/lib/x86_64-linux-gnu/libpthread.so.0  \
+	/lib/x86_64-linux-gnu/libreadline.so.7  \
+	/lib/x86_64-linux-gnu/libtinfo.so.5  \
+	/lib/x86_64-linux-gnu/libz.so.1  \
+	/usr/lib/x86_64-linux-gnu/libassuan.so.0  \
+	/usr/lib/x86_64-linux-gnu/libnpth.so.0  \
+	/usr/lib/x86_64-linux-gnu/libsqlite3.so.0  \
+	/lib/
 
 COPY --from=base /etc/gnupg /etc/gnupg
 COPY --from=base /root/.gnupg /root/.gnupg
-
-COPY --from=base /lib64/ld-linux-x86-64.so.2  /lib64/ld-linux-x86-64.so.2 
-COPY --from=base /lib/x86_64-linux-gnu/libbz2.so.1.0  /lib/x86_64-linux-gnu/libbz2.so.1.0 
-COPY --from=base /lib/x86_64-linux-gnu/libc.so.6  /lib/x86_64-linux-gnu/libc.so.6 
-COPY --from=base /lib/x86_64-linux-gnu/libdl.so.2  /lib/x86_64-linux-gnu/libdl.so.2 
-COPY --from=base /lib/x86_64-linux-gnu/libgcrypt.so.20  /lib/x86_64-linux-gnu/libgcrypt.so.20 
-COPY --from=base /lib/x86_64-linux-gnu/libgpg-error.so.0  /lib/x86_64-linux-gnu/libgpg-error.so.0 
-COPY --from=base /lib/x86_64-linux-gnu/libm.so.6  /lib/x86_64-linux-gnu/libm.so.6 
-COPY --from=base /lib/x86_64-linux-gnu/libpthread.so.0  /lib/x86_64-linux-gnu/libpthread.so.0 
-COPY --from=base /lib/x86_64-linux-gnu/libreadline.so.7  /lib/x86_64-linux-gnu/libreadline.so.7 
-COPY --from=base /lib/x86_64-linux-gnu/libtinfo.so.5  /lib/x86_64-linux-gnu/libtinfo.so.5 
-COPY --from=base /lib/x86_64-linux-gnu/libz.so.1  /lib/x86_64-linux-gnu/libz.so.1 
-COPY --from=base /usr/lib/x86_64-linux-gnu/libassuan.so.0  /usr/lib/x86_64-linux-gnu/libassuan.so.0 
-COPY --from=base /usr/lib/x86_64-linux-gnu/libnpth.so.0  /usr/lib/x86_64-linux-gnu/libnpth.so.0 
-COPY --from=base /usr/lib/x86_64-linux-gnu/libsqlite3.so.0  /usr/lib/x86_64-linux-gnu/libsqlite3.so.0 
 
 CMD ["/usr/bin/gpg"]

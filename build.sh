@@ -22,13 +22,14 @@ do
 		. $dirname/tags.env
 		for tag in $BASE_TAGS
 		do
-			args="$args --build-arg BASE_TAG=$tag"
+			args+=" --build-arg BASE_TAG=$tag"
 			docker build $args -t $user/$dirname:$tag $dirname/
 			[ $PUSH ] && docker push $user/$dirname:$tag
 		done
 	else
 		tag=${filename##*.}
 		[ "$filename" == "$tag" ] && tag=latest # no file extension
+	        args+=" --build-arg BASE_TAG=$tag"
 
 		docker build $args -t $user/$dirname:$tag $dirname/
 		[ $PUSH ] && docker push $user/$dirname:$tag

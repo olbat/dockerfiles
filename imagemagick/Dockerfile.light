@@ -21,6 +21,10 @@ COPY --from=base \
 COPY --from=base /lib64/ld-linux-x86-64.so.2  /lib64/ld-linux-x86-64.so.2 
 
 COPY --from=base \
+	/usr/lib/x86_64-linux-gnu/ImageMagick-6.9.7/modules-Q16/coders/*.so \
+	/lib/
+
+COPY --from=base \
 	/lib/x86_64-linux-gnu/libbsd.so.0  \
 	/lib/x86_64-linux-gnu/libbz2.so.1.0  \
 	/lib/x86_64-linux-gnu/libc.so.6  \

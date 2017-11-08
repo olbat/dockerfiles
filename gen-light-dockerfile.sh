@@ -25,6 +25,11 @@ $(docker run --rm $BASEIMAGE sh -c "ldd $EXECUTABLES $SHARED_LIBRARIES" \
 	| cut -d\> -f2 | cut -d\( -f1 | sort -u \
 	| xargs -n1 -I{} echo "COPY --from=base {} {}")
 
+$([ $SHARED_LIBRARIES ] && {
+	echo -e "COPY --from=base \\" \
+	&& echo -n $SHARED_LIBRARIES | xargs -d' ' -n1 -I{} echo -e "\t{} \\" \
+	&& echo -e "\t/lib/"; })
+
 COPY --from=base \\
 $(docker run --rm $BASEIMAGE sh -c "ldd $EXECUTABLES $SHARED_LIBRARIES" \
 	| grep -v '^[[:space:]]\+/\|:\|linux-vdso.so\|not a dynamic executable'\

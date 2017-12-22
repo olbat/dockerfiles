@@ -8,6 +8,8 @@ BASEIMAGE=${BASEIMAGE:-olbat/debian:stable}
 EXECUTABLES=${EXECUTABLES:-"/bin/bash /bin/cat"}
 FILES=${FILES:-"/etc/debian_version"}
 SHARED_LIBRARIES=${SHARED_LIBRARIES:-}
+EXECUTABLES_DESTINATION=${EXECUTABLES_DESTINATION:-/bin/}
+
 
 cat <<EOF
 FROM $BASEIMAGE AS base
@@ -18,7 +20,7 @@ MAINTAINER \$MAINTAINER
 
 COPY --from=base \\
 $(echo -n $EXECUTABLES | xargs -d' ' -n1 -I{} echo -e "\t{} \\")
-	/bin/
+	$EXECUTABLES_DESTINATION
 
 $(docker run --rm $BASEIMAGE sh -c "ldd $EXECUTABLES $SHARED_LIBRARIES" \
 	| grep '^[[:space:]]\+/' \

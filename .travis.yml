@@ -42,3 +42,4 @@ env:
   - IMAGE=uncss
   - IMAGE=imagemagick
   - IMAGE=sak
+  - IMAGE=hackmyresume

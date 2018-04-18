@@ -16,7 +16,7 @@ before_script:
 - travis_retry docker pull olbat/debian:testing
 - travis_retry docker pull olbat/debian:unstable
 # Login to the registry in order to be able to push new images
-- travis_retry docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+- yes | travis_retry docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
 script:
 - travis_retry ./build.sh

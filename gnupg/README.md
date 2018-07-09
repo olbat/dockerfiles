@@ -7,7 +7,6 @@ Docker image including GnuPG and some tools (installed from the Debian package).
 * gnupg
 * gnupg-agent
 * openssl
-* monkeysphere
 * hopenpgp-tools
 * secure-delete
 * git

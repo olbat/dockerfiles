@@ -10,7 +10,6 @@ RUN apt-get update \
   gnupg-agent \
   pinentry-tty \
   openssl \
-  monkeysphere \
   hopenpgp-tools \
   git \
   secure-delete \

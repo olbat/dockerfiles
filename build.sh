@@ -23,7 +23,7 @@ do
 		for tag in $BASE_TAGS
 		do
 			args+=" --build-arg BASE_TAG=$tag"
-			docker build $args -t $user/$dirname:$tag $dirname/
+			timeout 300 docker build $args -t $user/$dirname:$tag $dirname/
 			[ $PUSH ] && docker push $user/$dirname:$tag
 		done
 	else
@@ -31,7 +31,7 @@ do
 		[ "$filename" == "$tag" ] && tag=latest # no file extension
 	        args+=" --build-arg BASE_TAG=$tag"
 
-		docker build $args -t $user/$dirname:$tag $dirname/
+		timeout 300 docker build $args -t $user/$dirname:$tag $dirname/
 		[ $PUSH ] && docker push $user/$dirname:$tag
 	fi
 done

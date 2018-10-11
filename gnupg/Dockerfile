@@ -9,6 +9,7 @@ RUN apt-get update \
   gnupg \
   gnupg-agent \
   pinentry-tty \
+  scdaemon \
   openssl \
   hopenpgp-tools \
   git \

@@ -4,7 +4,7 @@ FROM ${BASE_USER}/nodejs
 MAINTAINER $MAINTAINER
 
 # Install the resume and themes packages (from the website)
-RUN sudo npm install -g \
+RUN sudo npm install -g --unsafe-perm=true \
   resume-cli \
   jsonresume-theme-elegant \
   jsonresume-theme-paper \

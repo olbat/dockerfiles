@@ -25,4 +25,5 @@ __Note__: The admin user/password for the Cups server is `print`/`print`
 * cups, cups-client
 * printer-driver-all
 * hpijs-ppds, hp-ppd
+* splix
 * sudo, whois

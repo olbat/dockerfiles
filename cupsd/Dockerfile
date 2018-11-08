@@ -15,6 +15,7 @@ RUN apt-get update \
   hpijs-ppds \
   hp-ppd \
   hplip \
+  printer-driver-splix \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 

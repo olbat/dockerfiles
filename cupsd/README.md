@@ -22,7 +22,9 @@ __Note__: The admin user/password for the Cups server is `print`/`print`
 5. The application on your machine should detect the printers !
 
 ### Included package
-* cups, cups-client
+* cups, cups-client, cups-filters
+* foomatic-db
 * printer-driver-all
+* openprinting-ppds
 * hpijs-ppds, hp-ppd
 * sudo, whois

@@ -11,7 +11,10 @@ RUN apt-get update \
   cups \
   cups-client \
   cups-bsd \
+  cups-filters \
+  foomatic-db-compressed-ppds \
   printer-driver-all \
+  openprinting-ppds \
   hpijs-ppds \
   hp-ppd \
   hplip \

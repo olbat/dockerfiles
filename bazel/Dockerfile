@@ -7,10 +7,11 @@ MAINTAINER $MAINTAINER
 RUN apt-get update \
 && apt-get install -y \
   gpg \
+  curl \
   openjdk-8-jdk \
 && echo "deb http://storage.googleapis.com/bazel-apt stable jdk1.8" \
   > /etc/apt/sources.list.d/bazel.list \
-&& apt-key adv --keyserver pool.sks-keyservers.net --recv-key 3D5919B448457EE0 \
+&& curl https://bazel.build/bazel-release.pub.gpg | apt-key add - \
 && apt-get update \
 && apt-get install -y bazel \
 && apt-get clean \

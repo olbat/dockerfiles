@@ -5,7 +5,7 @@ Docker image including CUPS print server and printing drivers (installed from th
 
 ## Run the Cups server
 ```bash
-docker run -d -p 631:631 -v /var/run/dbus:/var/run/dbus --name cups-server --net=host olbat/cupsd
+docker run -d -p 631:631 -v /var/run/dbus:/var/run/dbus --name cupsd olbat/cupsd
 ```
 __Note__: The admin user/password for the Cups server is `print`/`print`
 

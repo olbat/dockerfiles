@@ -31,8 +31,11 @@ RUN useradd \
   print \
 && sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
 
-# Setup environment
-WORKDIR /home/print
+# Configure the service's to be reachable
+RUN /usr/sbin/cupsd \
+  && while [ ! -f /var/run/cups/cupsd.pid ]; do sleep 1; done \
+  && cupsctl --remote-admin --remote-any --share-printers \
+  && kill $(cat /var/run/cups/cupsd.pid)
 
 # Default shell
 CMD ["/usr/sbin/cupsd", "-f"]

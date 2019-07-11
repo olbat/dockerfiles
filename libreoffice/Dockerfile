@@ -8,7 +8,7 @@ RUN apt-get update \
 && apt-get install -y \
   sudo \
   curl \
-  openjdk-8-jre \
+  openjdk-11-jre \
   libreoffice-l10n-fr \
   libreoffice-l10n-de \
   libreoffice-l10n-es \

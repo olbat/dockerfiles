@@ -10,7 +10,7 @@ RUN apt-get update \
   git \
   curl \
   gcc \
-  openjdk-8-jdk \
+  openjdk-11-jdk \
   maven \
   ant \
   ivy \

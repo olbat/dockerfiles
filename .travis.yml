@@ -35,7 +35,6 @@ env:
   - IMAGE=libreoffice
   - IMAGE=pandoc
   - IMAGE=java-devel
-  - IMAGE=java-ides
   - IMAGE=nodejs
   - IMAGE=jsonresume
   - IMAGE=bazel

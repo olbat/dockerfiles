@@ -9,27 +9,10 @@ RUN apt-get update \
   sudo \
   curl \
   openjdk-11-jre \
-  libreoffice-l10n-fr \
-  libreoffice-l10n-de \
-  libreoffice-l10n-es \
-  libreoffice-l10n-it \
-  hunspell-en-gb \
+  libreoffice-help-en-us \
   hunspell-en-us \
-  hunspell-fr \
-  hunspell-de-de \
-  hunspell-es \
-  hunspell-it \
   mythes-en-us \
-  mythes-fr \
-  mythes-de \
-  mythes-es \
-  mythes-it \
   hyphen-en-us \
-  hyphen-en-gb \
-  hyphen-fr \
-  hyphen-de \
-  hyphen-es \
-  hyphen-it \
   libreoffice \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*

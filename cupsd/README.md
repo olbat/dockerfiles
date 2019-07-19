@@ -28,3 +28,4 @@ __Note__: The admin user/password for the Cups server is `print`/`print`
 * openprinting-ppds
 * hpijs-ppds, hp-ppd
 * sudo, whois
+* smbclient

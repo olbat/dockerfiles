@@ -18,6 +18,7 @@ RUN apt-get update \
   hpijs-ppds \
   hp-ppd \
   hplip \
+  smbclient \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 

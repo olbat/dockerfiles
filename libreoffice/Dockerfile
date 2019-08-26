@@ -22,7 +22,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
 # Install LanguageTool extension
 # (3.2+ versions does not seems to support the Debian version of LibreOffice)
-RUN curl -s https://www.languagetool.org/download/LanguageTool-3.6.oxt \
+RUN curl -s https://www.languagetool.org/download/LanguageTool-4.6.oxt \
   > /tmp/LanguageTool.oxt \
 && unopkg add --shared /tmp/LanguageTool.oxt \
 && rm /tmp/LanguageTool.oxt

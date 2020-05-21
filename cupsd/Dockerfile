@@ -19,6 +19,7 @@ RUN apt-get update \
   hp-ppd \
   hplip \
   smbclient \
+  printer-driver-cups-pdf \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 

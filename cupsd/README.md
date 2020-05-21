@@ -24,7 +24,7 @@ __Note__: The admin user/password for the Cups server is `print`/`print`
 ### Included package
 * cups, cups-client, cups-filters
 * foomatic-db
-* printer-driver-all
+* printer-driver-all, printer-driver-cups-pdf
 * openprinting-ppds
 * hpijs-ppds, hp-ppd
 * sudo, whois

@@ -39,5 +39,8 @@ RUN /usr/sbin/cupsd \
   && cupsctl --remote-admin --remote-any --share-printers \
   && kill $(cat /var/run/cups/cupsd.pid)
 
+# Patch the default configuration file to only enable encryption if requested
+RUN sed -e '0,/^</s//DefaultEncryption IfRequested\n&/' -i /etc/cups/cupsd.conf
+
 # Default shell
 CMD ["/usr/sbin/cupsd", "-f"]

@@ -33,6 +33,9 @@ RUN useradd \
   print \
 && sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
 
+# "whois" package no longer needed
+RUN apt-get purge whois -y
+
 # Configure the service's to be reachable
 RUN /usr/sbin/cupsd \
   && while [ ! -f /var/run/cups/cupsd.pid ]; do sleep 1; done \

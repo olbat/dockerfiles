@@ -1,6 +1,9 @@
 ---
 language: bash
 
+os: linux
+dist: focal
+
 services:
 - docker
 

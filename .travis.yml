@@ -10,11 +10,6 @@ before_script:
 - sudo apt-get update
 - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 - docker --version
-# Update base images
-- travis_retry docker pull olbat/debian
-- travis_retry docker pull olbat/debian:stable
-- travis_retry docker pull olbat/debian:testing
-- travis_retry docker pull olbat/debian:unstable
 # Login to the registry in order to be able to push new images
 - yes | travis_retry docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 

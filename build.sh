@@ -14,7 +14,7 @@ do
 	[ -e $dockerfile ] || (echo "ERROR: file not found $dockerfile"; exit 1)
 	dirname=$(dirname "$dockerfile")
 	filename=$(basename "$dockerfile")
-	args="-f $dockerfile $buildargs"
+	args="--pull -f $dockerfile $buildargs"
 
 	if [ -f $dirname/tags.env -a $filename == "Dockerfile" ]
 	then

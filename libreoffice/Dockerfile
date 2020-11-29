@@ -21,11 +21,14 @@ RUN apt-get update \
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
 # Install LanguageTool extension
-# (3.2+ versions does not seems to support the Debian version of LibreOffice)
-RUN curl -s https://www.languagetool.org/download/LanguageTool-4.6.oxt \
-  > /tmp/LanguageTool.oxt \
-&& unopkg add --shared /tmp/LanguageTool.oxt \
-&& rm /tmp/LanguageTool.oxt
+
+# FIXME: temporary disabled because of an error similar to this one:
+#         https://github.com/hanya/MRI/issues/11
+
+#RUN curl -s https://www.languagetool.org/download/LanguageTool-stable.oxt \
+#  > /tmp/LanguageTool.oxt \
+#&& unopkg add --shared /tmp/LanguageTool.oxt \
+#&& rm /tmp/LanguageTool.oxt
 
 # Default volume
 RUN mkdir /data

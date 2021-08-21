@@ -14,7 +14,6 @@ RUN sed -i \
   sudo \
   build-essential \
   debhelper \
-  dh-systemd \
   devscripts \
   fakeroot \
   dpatch \

@@ -25,9 +25,11 @@ env:
   - IMAGE=sak
   - IMAGE=gnupg
   - IMAGE=cupsd
-  - IMAGE=debian-pkg
   - IMAGE=java-devel
   - IMAGE=imagemagick
+  # FIXME: temporary disabled because of some problems with pbuilder install
+  #        (mirror not found
+  #- IMAGE=debian-pkg
   # Disabled to reduce TravisCI cost
   #- IMAGE=gpg
   #- IMAGE=libreoffice

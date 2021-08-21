@@ -1,6 +1,6 @@
 ARG BASE_USER
 ARG MAINTAINER
-FROM ${BASE_USER}/debian:stretch
+FROM ${BASE_USER}/debian:stable
 MAINTAINER $MAINTAINER
 
 # Install Packages (basic and Java development tools)
@@ -10,7 +10,7 @@ RUN apt-get update \
   git \
   curl \
   gcc \
-  openjdk-11-jdk \
+  openjdk-17-jdk \
   maven \
   ant \
   ivy \

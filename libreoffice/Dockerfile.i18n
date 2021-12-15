@@ -1,13 +1,10 @@
 ARG BASE_USER
 ARG MAINTAINER
-FROM ${BASE_USER}/debian:stretch
+FROM ${BASE_USER}/debian:bullseye
 MAINTAINER $MAINTAINER
 
 # Install Packages
 RUN echo '\
-Package: hunspell-fr-comprehensive\n\
-Pin: version *\n\
-Pin-Priority: -100\n\n\
 Package: hunspell-fr-classical\n\
 Pin: version *\n\
 Pin-Priority: -100\n\n\

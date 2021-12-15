@@ -1,6 +1,6 @@
 ARG BASE_USER
 ARG MAINTAINER
-FROM ${BASE_USER}/debian:stretch
+FROM ${BASE_USER}/debian:bullseye
 MAINTAINER $MAINTAINER
 
 # Install Packages

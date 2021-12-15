@@ -1,0 +1,17 @@
+---
+generate-jobs-file:
+  stage: build
+  script: .gitlab-ci/generate-jobs-file.sh > generated-jobs.yml
+  artifacts:
+    paths:
+      - generated-jobs.yml
+  only:
+    - master
+
+build-and-publish-docker-images:
+  stage: deploy
+  trigger:
+    include:
+      - artifact: generated-jobs.yml
+        job: generate-jobs-file
+    strategy: depend

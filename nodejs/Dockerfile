@@ -1,15 +1,15 @@
 ARG BASE_USER
 ARG MAINTAINER
-FROM ${BASE_USER}/debian:stable
+FROM ${BASE_USER}/debian:bullseye
 MAINTAINER $MAINTAINER
 
-ARG NODE_VERSION=10
+ARG NODE_VERSION=16
 
 # Install Packages (basic and NodeJS development tools from upstream repository)
 RUN apt-get update \
 && apt-get install -y curl gnupg \
 && curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -\
-&& echo "deb http://deb.nodesource.com/node_${NODE_VERSION}.x buster main" \
+&& echo "deb http://deb.nodesource.com/node_${NODE_VERSION}.x bullseye main" \
   > /etc/apt/sources.list.d/nodejs.list \
 && apt-get update \
 && apt-get install -y sudo git nodejs \

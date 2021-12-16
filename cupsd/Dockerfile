@@ -34,14 +34,8 @@ RUN useradd \
   print \
 && sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
 
-# Configure the service's to be reachable
-RUN /usr/sbin/cupsd \
-  && while [ ! -f /var/run/cups/cupsd.pid ]; do sleep 1; done \
-  && cupsctl --remote-admin --remote-any --share-printers \
-  && kill $(cat /var/run/cups/cupsd.pid)
-
-# Patch the default configuration file to only enable encryption if requested
-RUN sed -e '0,/^</s//DefaultEncryption IfRequested\n&/' -i /etc/cups/cupsd.conf
+# Copy the default configuration file
+COPY --chown=root:lp cupsd.conf /etc/cups/cupsd.conf
 
 # Default shell
 CMD ["/usr/sbin/cupsd", "-f"]

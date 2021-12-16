@@ -10,7 +10,7 @@ RUN sed -i \
   {p; s/^\([[:space:]]*\)deb\([[:space:]]\+.*\)$/\1deb-src\2/}" \
   /etc/apt/sources.list \
 && apt-get update \
-&& apt-get install -y \
+&& echo '' | apt-get install -y --no-install-recommends \
   sudo \
   build-essential \
   debhelper \

@@ -4,9 +4,16 @@
 Docker image including CUPS print server and printing drivers (installed from the Debian packages).
 
 ## Run the Cups server
+Using the default [cupsd.conf](cupsd.conf) configuration file:
 ```bash
 docker run -d -p 631:631 -v /var/run/dbus:/var/run/dbus --name cupsd olbat/cupsd
 ```
+
+Using a custom cupsd.conf configuration file:
+```bash
+docker run -d -p 631:631 -v /var/run/dbus:/var/run/dbus -v $PWD/cupsd.conf:/etc/cups/cupsd.conf --name cupsd olbat/cupsd`
+```
+
 
 ## Add printers to the Cups server
 1. Connect to the Cups server at [http://127.0.0.1:631](http://127.0.0.1:631)

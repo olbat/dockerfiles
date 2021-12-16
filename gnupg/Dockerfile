@@ -11,7 +11,6 @@ RUN apt-get update \
   pinentry-tty \
   scdaemon \
   openssl \
-  hopenpgp-tools \
   git \
   secure-delete \
 && apt-get clean \

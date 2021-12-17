@@ -35,8 +35,7 @@ default:
     entrypoint: [""]
   before_script:
     - mkdir -p /kaniko/.docker
-    - echo "{\"auths\":{\"${DOCKER_REGISTRY}\":{\"auth\":\"${DOCKER_AUTH}\"}}}"\
-      > /kaniko/.docker/config.json
+    - cp $DOCKER_CONFIG_FILE /kaniko/.docker/config.json
   retry: 1
   timeout: 10m
 

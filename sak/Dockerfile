@@ -1,6 +1,5 @@
-ARG BASE_TAG
 ARG MAINTAINER
-FROM debian:$BASE_TAG-slim
+FROM debian:stable-slim
 MAINTAINER $MAINTAINER
 
 RUN apt-get update \

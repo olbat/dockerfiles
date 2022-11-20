@@ -4,7 +4,7 @@ set -e
 
 [ $# -ge 1 ] && . $1
 
-BASEIMAGE=${BASEIMAGE:-olbat/debian:stable}
+BASEIMAGE=${BASEIMAGE:-debian:stable-slim}
 EXECUTABLES=${EXECUTABLES:-"/bin/bash /bin/cat"}
 FILES=${FILES:-"/etc/debian_version"}
 SHARED_LIBRARIES=${SHARED_LIBRARIES:-}

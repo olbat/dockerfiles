@@ -27,11 +27,21 @@ do
 			[ $PUSH ] && docker push $user/$dirname:$tag
 		done
 	else
-		tag=${filename##*.}
-		[ "$filename" == "$tag" ] && tag=latest # no file extension
+		[ "$filename" == "Dockerfile" ] && tag=latest || tag=${filename##*.}
 	        args+=" --build-arg BASE_TAG=$tag"
 
 		timeout 300 docker build $args -t $user/$dirname:$tag $dirname/
-		[ $PUSH ] && docker push $user/$dirname:$tag
+
+		if [ $PUSH ]
+		then
+			docker push $user/$dirname:$tag
+
+			if [ "$tag" == "latest" ]
+			then
+				today=$(date +%Y-%m-%d)
+				docker tag $user/$dirname:$tag $user/$dirname:$today
+				docker push $user/$dirname:$today
+			fi
+		fi
 	fi
 done

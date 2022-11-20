@@ -31,4 +31,8 @@ RUN apt-get update \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
+ENV LANG=C.UTF-8 \
+LANGUAGE=C.UTF-8 \
+LC_ALL=C.UTF-8
+
 CMD ["/bin/bash"]

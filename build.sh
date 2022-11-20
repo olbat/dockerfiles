@@ -4,6 +4,7 @@ set -e
 set -x
 
 . build.env
+
 buildargs="--build-arg BASE_USER=$BASE_USER"
 buildargs+=" --build-arg MAINTAINER=$MAINTAINER"
 user=${BUILD_USER:-olbat}

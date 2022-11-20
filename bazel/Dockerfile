@@ -1,6 +1,5 @@
-ARG BASE_USER
 ARG MAINTAINER
-FROM ${BASE_USER}/debian:stable
+FROM debian:stable-slim
 MAINTAINER $MAINTAINER
 
 # Install java 8, gpg and bazel package (from upstream repository)

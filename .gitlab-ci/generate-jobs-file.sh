@@ -13,6 +13,11 @@ function generate_job() {
 	local image=$3
 	local args=$4
 
+	if [[ "$image" =~ /:latest$/ ]]
+	then
+		args="--destination ${image//latest/$(date +%Y-%m-%d)} $args"
+	fi
+
 	cat <<EOF
 $image:
   script:

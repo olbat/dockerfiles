@@ -1,6 +1,5 @@
-ARG BASE_USER
 ARG MAINTAINER
-FROM ${BASE_USER}/debian:stable
+FROM debian:stable-slim
 MAINTAINER $MAINTAINER
 
 # Install Packages (basic and Java development tools)

@@ -1,7 +1,6 @@
-ARG BASE_USER
 ARG BASE_TAG
 ARG MAINTAINER
-FROM ${BASE_USER}/debian:$BASE_TAG
+FROM debian:$BASE_TAG-slim
 MAINTAINER $MAINTAINER
 
 # Add debian sources repository and install Debian devel. and packaging tools

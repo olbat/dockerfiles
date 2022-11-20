@@ -1,6 +1,5 @@
-ARG BASE_USER
 ARG MAINTAINER
-FROM ${BASE_USER}/debian:testing
+FROM debian:testing-slim
 MAINTAINER $MAINTAINER
 
 RUN apt-get update \

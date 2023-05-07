@@ -13,9 +13,12 @@ function generate_job() {
 	local image=$3
 	local args=$4
 
+	# also generate a unique daily tag name for the image
 	if [[ "$image" =~ :latest$ ]]
 	then
 		args="--destination ${image//latest/$(date +%Y-%m-%d)} $args"
+	else
+		args="--destination $image-$(date +%Y-%m-%d) $args"
 	fi
 
 	cat <<EOF

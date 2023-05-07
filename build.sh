@@ -1,21 +1,53 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 set -x
+
+# important: images are automatically built from a different script,
+#            see .gitlab-ci/generate-jobs-file.sh
 
 . build.env
 
-buildargs="--build-arg BASE_USER=$BASE_USER"
-buildargs+=" --build-arg MAINTAINER=$MAINTAINER"
+basebuildargs="--build-arg BASE_USER=$BASE_USER"
+basebuildargs+=" --build-arg MAINTAINER=$MAINTAINER"
 user=${BUILD_USER:-olbat}
-dir=${IMAGE%/}
+dir=${IMAGE:-*}
+dir=${dir%/}
 
-for dockerfile in ${dir:-*}/Dockerfile*
+function build_and_push_docker_image {
+	local imagename=$1
+	local tag=$2
+	local dirname=$3
+	local buildargs=$4
+
+	buildargs+=" --build-arg BASE_TAG=$tag"
+
+	timeout 300 docker build $buildargs -t $imagename:$tag $dirname/
+
+	if [ ${PUSH_IMAGES:-} ]
+	then
+		docker push $imagename:$tag
+
+		today=$(date +%Y-%m-%d)
+
+		if [ "$tag" == "latest" ]
+		then
+			docker tag $imagename:$tag $imagename:$today
+			docker push $imagename:$today
+		else
+			docker tag $imagename:$tag $imagename:$tag-$today
+			docker push $imagename:$tag-$today
+		fi
+	fi
+
+}
+
+for dockerfile in $dir/Dockerfile*
 do
 	[ -e $dockerfile ] || (echo "ERROR: file not found $dockerfile"; exit 1)
 	dirname=$(dirname "$dockerfile")
 	filename=$(basename "$dockerfile")
-	args="--pull -f $dockerfile $buildargs"
+	args="--pull -f $dockerfile $basebuildargs"
 
 	if [ -f $dirname/tags.env -a $filename == "Dockerfile" ]
 	then
@@ -23,26 +55,11 @@ do
 		. $dirname/tags.env
 		for tag in $BASE_TAGS
 		do
-			args+=" --build-arg BASE_TAG=$tag"
-			timeout 300 docker build $args -t $user/$dirname:$tag $dirname/
-			[ $PUSH ] && docker push $user/$dirname:$tag
+			build_and_push_docker_image $user/$dirname $tag $dirname "$args"
 		done
 	else
 		[ "$filename" == "Dockerfile" ] && tag=latest || tag=${filename##*.}
-	        args+=" --build-arg BASE_TAG=$tag"
-
-		timeout 300 docker build $args -t $user/$dirname:$tag $dirname/
-
-		if [ $PUSH ]
-		then
-			docker push $user/$dirname:$tag
-
-			if [ "$tag" == "latest" ]
-			then
-				today=$(date +%Y-%m-%d)
-				docker tag $user/$dirname:$tag $user/$dirname:$today
-				docker push $user/$dirname:$today
-			fi
-		fi
+		build_and_push_docker_image $user/$dirname $tag $dirname "$args"
 	fi
+
 done

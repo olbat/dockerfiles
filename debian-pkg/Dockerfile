@@ -4,10 +4,9 @@ FROM debian:$BASE_TAG-slim
 MAINTAINER $MAINTAINER
 
 # Add debian sources repository and install Debian devel. and packaging tools
-RUN sed -i \
-  "/$BASE_TAG[[:space:]]\+main[[:space:]]*$/\
-  {p; s/^\([[:space:]]*\)deb\([[:space:]]\+.*\)$/\1deb-src\2/}" \
-  /etc/apt/sources.list \
+RUN echo \
+  "deb-src http://deb.debian.org/debian/ $BASE_TAG main" \
+  > /etc/apt/sources.list.d/debian-sources.list \
 && apt-get update \
 && echo '' | apt-get install -y --no-install-recommends \
   sudo \
@@ -48,7 +47,7 @@ RUN useradd \
   --shell=/bin/bash \
   debian \
 && sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers \
-&& /bin/echo -e \
+&& echo -e \
   '[ "$DEBEMAIL" == "user@domaim.tld" -o "$DEBFULLNAME" == "Debian" ] \\\n'\
   '  && echo "WARNING: please do not forget to customize" \\\n'\
   '    "DEBFULLNAME and DEBEMAIL env vars"' \

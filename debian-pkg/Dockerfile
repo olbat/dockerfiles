@@ -5,7 +5,7 @@ MAINTAINER $MAINTAINER
 
 # Add debian sources repository and install Debian devel. and packaging tools
 RUN echo \
-  "deb-src http://deb.debian.org/debian/ $BASE_TAG main" \
+  "deb-src http://deb.debian.org/debian/ $(sed -n -e '/VERSION_CODENAME/ s/.*=//p' /usr/lib/os-release) main" \
   > /etc/apt/sources.list.d/debian-sources.list \
 && apt-get update \
 && echo '' | apt-get install -y --no-install-recommends \

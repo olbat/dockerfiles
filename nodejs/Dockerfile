@@ -2,13 +2,13 @@ ARG MAINTAINER
 FROM debian:stable-slim
 MAINTAINER $MAINTAINER
 
-ARG NODE_VERSION=16
+ARG NODE_VERSION=18
 
 # Install Packages (basic and NodeJS development tools from upstream repository)
 RUN apt-get update \
 && apt-get install -y curl gnupg \
 && curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -\
-&& echo "deb http://deb.nodesource.com/node_${NODE_VERSION}.x bullseye main" \
+&& echo "deb http://deb.nodesource.com/node_${NODE_VERSION}.x bookworm main" \
   > /etc/apt/sources.list.d/nodejs.list \
 && apt-get update \
 && apt-get install -y sudo git nodejs \

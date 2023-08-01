@@ -7,7 +7,7 @@ RUN apt-get update \
 && apt-get install -y \
   sudo \
   curl \
-  openjdk-11-jre \
+  openjdk-17-jre \
   libreoffice-help-en-us \
   hunspell-en-us \
   mythes-en-us \
@@ -17,7 +17,7 @@ RUN apt-get update \
 && rm -rf /var/lib/apt/lists/*
 
 # Configure Java Env. (see https://wiki.debian.org/LibreOffice#Java_Environment)
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64
 
 # Install LanguageTool extension
 

@@ -27,7 +27,7 @@ RUN useradd \
 && sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
 
 # Setup environment
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64
 RUN /bin/echo -e "export JAVA_HOME=${JAVA_HOME}" >> /home/java/.bashrc
 USER java
 WORKDIR /home/java

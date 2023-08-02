@@ -14,7 +14,6 @@ RUN echo \
   debhelper \
   devscripts \
   fakeroot \
-  dpatch \
   equivs \
   lintian \
   quilt \

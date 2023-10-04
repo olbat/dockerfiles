@@ -3,4 +3,4 @@ ARG MAINTAINER
 FROM ${BASE_USER}/nodejs
 MAINTAINER $MAINTAINER
 
-RUN sudo npm install -g uncss
+RUN sudo npm install -g uglify-js@3

@@ -1,4 +1,4 @@
-# Dockerfiles [![Build Status](https://secure.travis-ci.org/olbat/dockerfiles.png?branch=master)](https://travis-ci.org/olbat/dockerfiles)
+# Dockerfiles [![Build Status](https://gitlab.com/olbat/dockerfiles/badges/master/pipeline.svg)](https://gitlab.com/olbat/dockerfiles/-/pipelines)
 
 A collection of Dockerfiles.
 

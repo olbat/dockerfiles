@@ -1,4 +1,4 @@
-# HackMyResume image [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/olbat/dockerfiles/branches/master/14)](https://travis-ci.org/olbat/dockerfiles)
+# HackMyResume image
 
 ## Overview
 Docker image including [HackMyResume](https://fluentdesk.com/hackmyresume).

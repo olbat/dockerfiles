@@ -1,4 +1,4 @@
-# uglify image [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/olbat/dockerfiles/branches/master/15)](https://travis-ci.org/olbat/dockerfiles)
+# uglify image
 
 ## Overview
 Docker image including uglify (see [uglify](https://www.npmjs.com/package/uglify-js)).

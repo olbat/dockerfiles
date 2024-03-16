@@ -1,4 +1,4 @@
-# LibreOffice image [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/olbat/dockerfiles/branches/master/4)](https://travis-ci.org/olbat/dockerfiles)
+# LibreOffice image
 
 ## Overview
 Docker image including Libre Office (installed from the Debian package).

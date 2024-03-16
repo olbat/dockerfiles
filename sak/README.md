@@ -1,4 +1,4 @@
-# Swiss Army Knife image [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/olbat/dockerfiles/branches/master/13)](https://travis-ci.org/olbat/dockerfiles)
+# Swiss Army Knife image
 
 ## Overview
 Docker image including a collection of Unix tools

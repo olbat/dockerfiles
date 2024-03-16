@@ -1,4 +1,4 @@
-# GnuPG image [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/olbat/dockerfiles/branches/master/1)](https://travis-ci.org/olbat/dockerfiles)
+# GnuPG image
 
 ## Overview
 Docker image including GnuPG and some tools (installed from the Debian package).

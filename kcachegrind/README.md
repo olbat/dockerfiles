@@ -1,4 +1,4 @@
-# KCachegrind image [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/olbat/dockerfiles/branches/master/10)](https://travis-ci.org/olbat/dockerfiles)
+# KCachegrind image
 
 ## Overview
 Docker image including the KCacheGrind tool.

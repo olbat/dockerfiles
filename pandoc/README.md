@@ -1,4 +1,4 @@
-# Pandoc image [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/olbat/dockerfiles/branches/master/16)](https://travis-ci.org/olbat/dockerfiles)
+# Pandoc image
 
 ## Overview
 Docker image including Pandoc and dependencies to support additional formats (installed from the Debian package).

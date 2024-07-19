@@ -23,6 +23,9 @@ RUN apt-get update \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
+# This will use port 631
+EXPOSE 631
+
 # Add user and disable sudo password checking
 RUN useradd \
   --groups=sudo,lp,lpadmin \

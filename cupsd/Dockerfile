@@ -2,7 +2,12 @@ ARG MAINTAINER
 FROM debian:testing-slim
 MAINTAINER $MAINTAINER
 
-# Install Packages (basic tools, cups, basic drivers, HP drivers)
+# Install Packages (basic tools, cups, basic drivers, HP drivers).
+# See https://wiki.debian.org/CUPSDriverlessPrinting,
+#     https://wiki.debian.org/CUPSPrintQueues
+#     https://wiki.debian.org/CUPSQuickPrintQueues
+# Note: printer-driver-all has been removed from Debian testing,
+#       therefore printer-driver-* packages are manuall added.
 RUN apt-get update \
 && apt-get install -y \
   sudo \
@@ -12,14 +17,31 @@ RUN apt-get update \
   cups-client \
   cups-bsd \
   cups-filters \
+  cups-browsed \
+  foomatic-db-engine \
   foomatic-db-compressed-ppds \
-  printer-driver-all \
   openprinting-ppds \
-  hpijs-ppds \
   hp-ppd \
-  hplip \
-  smbclient \
+  printer-driver-brlaser \
+  printer-driver-c2050 \
+  printer-driver-c2esp \
+  printer-driver-cjet \
+  printer-driver-dymo \
+  printer-driver-escpr \
+  printer-driver-foo2zjs \
+  printer-driver-fujixerox \
+  printer-driver-m2300w \
+  printer-driver-min12xxw \
+  printer-driver-pnm2ppa \
+  printer-driver-indexbraille \
+  printer-driver-oki \
+  printer-driver-ptouch \
+  printer-driver-pxljr \
+  printer-driver-sag-gdi \
+  printer-driver-splix \
   printer-driver-cups-pdf \
+  smbclient \
+  avahi-utils \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 

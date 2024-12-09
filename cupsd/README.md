@@ -16,6 +16,8 @@ docker run -d -p 631:631 -v /var/run/dbus:/var/run/dbus -v $PWD/cupsd.conf:/etc/
 
 __Note__: the following mount can be added to configure a printer connected through USB `-v /dev/bus/usb:/dev/bus/usb` see https://github.com/olbat/dockerfiles/issues/103#issuecomment-2187149476
 
+__Note (bis)__: if the daemon fails to start with a `cupsdDoSelect() failed` error, you can fix the issue by adjusting the container's `ulimit` configuration (see https://github.com/olbat/dockerfiles/issues/111#issuecomment-2529393079)
+
 
 ## Add printers to the Cups server
 1. Connect to the Cups server at [http://127.0.0.1:631](http://127.0.0.1:631)

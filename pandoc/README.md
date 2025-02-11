@@ -11,6 +11,5 @@ Docker image including Pandoc and dependencies to support additional formats (in
 * texlive-luatex
 * librsvg2-bin
 * context
-* wkhtmltopdf
 * groff
 * libjs-mathjax

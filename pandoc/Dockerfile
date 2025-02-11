@@ -11,7 +11,6 @@ RUN apt-get update \
   texlive-luatex \
   librsvg2-bin \
   context \
-  wkhtmltopdf \
   groff \
   libjs-mathjax \
 && apt-get clean \

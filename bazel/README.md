@@ -5,5 +5,5 @@ Docker image including the Google's Bazel automation software (installed from th
 
 ### Included package
 * gpg
-* openjdk-8-jdk
+* default-jdk
 * bazel

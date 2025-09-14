@@ -38,7 +38,7 @@ docker run --rm -it -v $(pwd):/home/office -v /tmp/.X11-unix:/tmp/.X11-unix \
 * hyphen-de
 * hyphen-es
 * hyphen-it
-* openjdk-7-jre
+* default-jre
 * sudo
 
 ### Included extensions

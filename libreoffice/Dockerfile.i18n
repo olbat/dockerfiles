@@ -25,7 +25,7 @@ Pin-Priority: -100\n'\
 && apt-get install -y \
   sudo \
   curl \
-  openjdk-17-jre \
+  default-jre \
   "libreoffice-l10n-*" \
   "libreoffice-help-*" \
   "hunspell-*" \
@@ -34,9 +34,6 @@ Pin-Priority: -100\n'\
   libreoffice \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
-
-# Configure Java Env. (see https://wiki.debian.org/LibreOffice#Java_Environment)
-ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64
 
 # FIXME: temporary disabled because of an error similar to this one:
 #         https://github.com/hanya/MRI/issues/11

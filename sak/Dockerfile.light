@@ -48,7 +48,7 @@ COPY --from=base \
 	/bin/umount \
 	/bin/uname \
 	/bin/vdir \
-	/usr/bin/[ \
+	/usr/bin/[[] \
 	/usr/bin/addr2line \
 	/usr/bin/ar \
 	/usr/bin/arch \

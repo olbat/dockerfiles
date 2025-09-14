@@ -50,6 +50,5 @@ COPY --from=base /etc/group /etc/group
 COPY --from=base /etc/shadow /etc/shadow
 COPY --from=base /etc/gnupg /etc/gnupg
 COPY --from=base /root/.gnupg /root/.gnupg
-COPY --from=base /usr/share/gnupg/sks-keyservers.netCA.pem /usr/share/gnupg/sks-keyservers.netCA.pem
 
 CMD ["/usr/bin/gpg"]

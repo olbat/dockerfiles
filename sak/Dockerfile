@@ -28,6 +28,7 @@ RUN apt-get update \
   ldnsutils \
   openssl \
   curl \
+  ca-certificates \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 

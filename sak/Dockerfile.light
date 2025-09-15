@@ -1,10 +1,7 @@
 FROM olbat/sak AS base
 
-FROM scratch
-ARG MAINTAINER
-MAINTAINER $MAINTAINER
-
-COPY --from=base \
+RUN mkdir -p /tmp/rootdir/bin/
+RUN cp -L \
 	/bin/bash \
 	/bin/bzip2 \
 	/bin/cat \
@@ -149,7 +146,6 @@ COPY --from=base \
 	/usr/bin/tee \
 	/usr/bin/test \
 	/usr/bin/timeout \
-	/usr/bin/touch \
 	/usr/bin/tr \
 	/usr/bin/traceroute \
 	/usr/bin/truncate \
@@ -169,15 +165,13 @@ COPY --from=base \
 	/usr/bin/xxd \
 	/usr/bin/xz \
 	/usr/bin/yes \
-	/bin/
+	/tmp/rootdir/bin/
 
-COPY --from=base /lib64/ld-linux-x86-64.so.2  /lib64/ld-linux-x86-64.so.2 
-
-COPY --from=base \
+RUN mkdir -p /tmp/rootdir/lib/
+RUN cp -L \
 	/lib/x86_64-linux-gnu/libnss_files.so.2 \
-	/lib/
-
-COPY --from=base \
+	/tmp/rootdir/lib/
+RUN cp -L \
 	/lib/x86_64-linux-gnu/libacl.so.1  \
 	/lib/x86_64-linux-gnu/libattr.so.1  \
 	/lib/x86_64-linux-gnu/libaudit.so.1  \
@@ -243,13 +237,30 @@ COPY --from=base \
 	/lib/x86_64-linux-gnu/libzstd.so.1  \
 	/usr/lib/x86_64-linux-gnu/libc.so.6  \
 	/usr/lib/x86_64-linux-gnu/libgmp.so.10  \
-	/lib/
+	/tmp/rootdir/lib/
 
-COPY --from=base /etc/debian_version /etc/debian_version
-COPY --from=base /etc/profile /etc/profile
-COPY --from=base /etc/bash.bashrc /etc/bash.bashrc
-COPY --from=base /etc/passwd /etc/passwd
-COPY --from=base /etc/group /etc/group
-COPY --from=base /etc/shadow /etc/shadow
+RUN install -D /lib64/ld-linux-x86-64.so.2  /tmp/rootdir/lib64/ld-linux-x86-64.so.2 
+
+RUN mkdir -p `dirname /tmp/rootdir/etc/debian_version` \
+	&& cp -rL /etc/debian_version /tmp/rootdir/etc/debian_version
+RUN mkdir -p `dirname /tmp/rootdir/etc/profile` \
+	&& cp -rL /etc/profile /tmp/rootdir/etc/profile
+RUN mkdir -p `dirname /tmp/rootdir/etc/bash.bashrc` \
+	&& cp -rL /etc/bash.bashrc /tmp/rootdir/etc/bash.bashrc
+RUN mkdir -p `dirname /tmp/rootdir/etc/passwd` \
+	&& cp -rL /etc/passwd /tmp/rootdir/etc/passwd
+RUN mkdir -p `dirname /tmp/rootdir/etc/group` \
+	&& cp -rL /etc/group /tmp/rootdir/etc/group
+RUN mkdir -p `dirname /tmp/rootdir/etc/shadow` \
+	&& cp -rL /etc/shadow /tmp/rootdir/etc/shadow
+RUN mkdir -p `dirname /tmp/rootdir/etc/ssl/certs/ca-certificates.crt` \
+	&& cp -rL /etc/ssl/certs/ca-certificates.crt /tmp/rootdir/etc/ssl/certs/ca-certificates.crt
+
+
+FROM scratch
+ARG MAINTAINER
+MAINTAINER $MAINTAINER
+
+COPY --from=0 /tmp/rootdir/ /
 
 CMD ["/bin/bash"]

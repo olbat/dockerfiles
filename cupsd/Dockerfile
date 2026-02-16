@@ -22,7 +22,6 @@ RUN apt-get update \
   foomatic-db-compressed-ppds \
   openprinting-ppds \
   hp-ppd \
-  printer-driver-hpcups \
   printer-driver-brlaser \
   printer-driver-c2050 \
   printer-driver-c2esp \

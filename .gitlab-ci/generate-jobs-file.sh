@@ -61,8 +61,13 @@ stages:
   - build
   - manifests
 
+variables
+  DOCKER_TLS_CERTDIR: "/certs"
+
 default:
-  image: docker:cli
+  image: docker:29-cli
+  services:
+    - docker:29-dind
   before_script:
     - mkdir -p ~/.docker
     - cp $DOCKER_CONFIG_FILE ~/.docker/config.json

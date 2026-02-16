@@ -1,0 +1,12 @@
+# List Dockerfile paths to also build for ARM64 (one per line)
+sak/Dockerfile
+gpg/Dockerfile
+cupsd/Dockerfile
+cupsd/Dockerfile.stable
+imagemagick/Dockerfile
+pandoc/Dockerfile
+kcachegrind/Dockerfile
+libreoffice/Dockerfile
+java-devel/Dockerfile
+debian-pkg/Dockerfile
+bazel/Dockerfile

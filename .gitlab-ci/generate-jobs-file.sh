@@ -51,7 +51,9 @@ EOF
 
 for dockerfile in */Dockerfile*
 do
+	grep -qxF "$dockerfile" .gitlab-ci/build-ignore 2>/dev/null && continue
 	[ -e $dockerfile ] || (echo "ERROR: file not found $dockerfile"; exit 1)
+
 	dirname=$(dirname "$dockerfile")
 	filename=$(basename "$dockerfile")
 	args="$buildargs "

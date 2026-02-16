@@ -3,13 +3,19 @@
 set -euo pipefail
 
 . build.env
+multi_platform_images=()
 buildargs="--build-arg BASE_USER=$BASE_USER"
 buildargs+=" --build-arg MAINTAINER=$MAINTAINER"
 user=${BUILD_USER:-olbat}
 
-function is_arm64_enabled() {
-	local dockerfile=$1
-	grep -qxF "$dockerfile" .gitlab-ci/arm64-builds 2>/dev/null
+
+function get_daily_image_name() {
+	local image=$1
+	if [[ "$image" =~ :latest$ ]]; then
+		echo "${image//latest/$(date +%Y-%m-%d)}"
+	else
+		echo "$image-$(date +%Y-%m-%d)"
+	fi
 }
 
 function generate_job() {
@@ -19,82 +25,36 @@ function generate_job() {
 	local args=$4
 	local platform=${5:-}
 
-	local job_name="$image"
-	local job_image="$image"
-	local runner_tag="saas-linux-small-amd64"
-	local daily_image
-
-	# also generate a unique daily tag name for the image
-	if [[ "$image" =~ :latest$ ]]; then
-		daily_image="${image//latest/$(date +%Y-%m-%d)}"
-	else
-		daily_image="$image-$(date +%Y-%m-%d)"
-	fi
+	local daily_image=$(get_daily_image_name "$image")
 
 	if [ -n "$platform" ]; then
-		job_name="$image-$platform"
-		job_image="$image-$platform"
+		image="$image-$platform"
 		daily_image="$daily_image-$platform"
 		runner_tag="saas-linux-small-$platform"
+	else
+	    runner_tag="saas-linux-small-amd64"
 	fi
 
-	args="--destination $daily_image $args"
-
 	cat <<EOF
-$job_name:
+$image:
   stage: build
   tags: [$runner_tag]
   script:
     - >-
-      /kaniko/executor
-      --context "$dir"
-      --dockerfile "$dockerfile"
-      --destination "$job_image"
+      docker build
+      --file "$dockerfile"
+      --tag "$image"
+      --tag "$daily_image"
       $args
+      "$dir"
+    - docker push "$image"
+    - docker push "$daily_image"
 
 EOF
 }
 
-manifest_script=""
-manifest_needs=""
 
-function collect_manifest_image() {
-	local image=$1
-	local daily_image
-
-	if [[ "$image" =~ :latest$ ]]; then
-		daily_image="${image//latest/$(date +%Y-%m-%d)}"
-	else
-		daily_image="$image-$(date +%Y-%m-%d)"
-	fi
-
-	manifest_script+="    - crane index append --flatten -m $image-amd64 -m $image-arm64 -t $image
-"
-	manifest_script+="    - crane index append --flatten -m $daily_image-amd64 -m $daily_image-arm64 -t $daily_image
-"
-	manifest_needs+="    - \"$image-amd64\"
-    - \"$image-arm64\"
-"
-}
-
-function generate_manifest_job() {
-	[ -z "$manifest_script" ] && return
-
-	cat <<EOF
-multiarch-manifests:
-  stage: manifests
-  image:
-    name: gcr.io/go-containerregistry/crane:debug
-    entrypoint: [""]
-  before_script:
-    - mkdir -p ~/.docker
-    - cp \$DOCKER_CONFIG_FILE ~/.docker/config.json
-  script:
-$manifest_script
-EOF
-}
-
-
+# Base configuration
 cat <<EOF
 ---
 stages:
@@ -102,27 +62,27 @@ stages:
   - manifests
 
 default:
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
+  image: docker:cli
   before_script:
-    - mkdir -p /kaniko/.docker
-    - cp $DOCKER_CONFIG_FILE /kaniko/.docker/config.json
+    - mkdir -p ~/.docker
+    - cp $DOCKER_CONFIG_FILE ~/.docker/config.json
   retry: 1
   timeout: 10m
 
 EOF
 
+
+# Image creation jobs
 for dockerfile in */Dockerfile*
 do
 	grep -qxF "$dockerfile" .gitlab-ci/build-ignore 2>/dev/null && continue
+	grep -qxF "$dockerfile" .gitlab-ci/multi-platform-builds 2>/dev/null && multi_platform=true || multi_platform=false
+
 	[ -e $dockerfile ] || (echo "ERROR: file not found $dockerfile"; exit 1)
 
 	dirname=$(dirname "$dockerfile")
 	filename=$(basename "$dockerfile")
 	args="$buildargs "
-	arm64_enabled=false
-	is_arm64_enabled "$dockerfile" && arm64_enabled=true
 
 	if [ -f $dirname/tags.env -a $filename == "Dockerfile" ]
 	then
@@ -133,10 +93,10 @@ do
 			args+=" --build-arg BASE_TAG=$tag"
 			image=${user}/${dirname}:${tag}
 
-			if $arm64_enabled; then
+			if $multi_platform; then
 				generate_job "$dirname"/ "$dockerfile" "$image" "$args" "amd64"
 				generate_job "$dirname"/ "$dockerfile" "$image" "$args" "arm64"
-				collect_manifest_image "$image"
+				multi_platform_images+=("$image" $(get_daily_image_name "$image"))
 			else
 				generate_job "$dirname"/ "$dockerfile" "$image" "$args"
 			fi
@@ -147,14 +107,29 @@ do
 	        args+=" --build-arg BASE_TAG=$tag"
 		image=${user}/${dirname}:${tag}
 
-		if $arm64_enabled; then
+		if $multi_platform; then
 			generate_job "$dirname"/ "$dockerfile" "$image" "$args" "amd64"
 			generate_job "$dirname"/ "$dockerfile" "$image" "$args" "arm64"
-			collect_manifest_image "$image"
+			multi_platform_images+=("$image" $(get_daily_image_name "$image"))
 		else
 			generate_job "$dirname"/ "$dockerfile" "$image" "$args"
 		fi
 	fi
 done
 
-generate_manifest_job
+
+# Manifests generation job, for multi-platform images support
+# (see https://docs.docker.com/build/building/multi-platform/)
+[ ${#multi_platform_images[@]} -eq 0 ] && return
+
+cat <<-EOF
+build-and-push-multiplatform-manifests:
+  stage: manifests
+  script:
+EOF
+for img in "${multi_platform_images[@]}"; do
+    cat <<-EOF
+	    - docker manifest create $img ${img}-amd64 ${img}-arm64
+	    - docker manifest push $img
+	EOF
+done

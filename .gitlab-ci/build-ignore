@@ -1,0 +1,5 @@
+# List Dockerfile paths to exclude from CI builds (one per line)
+nodejs/Dockerfile
+jsonresume/Dockerfile
+uncss/Dockerfile
+uglify/Dockerfile

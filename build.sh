@@ -45,6 +45,7 @@ function build_and_push_docker_image {
 for dockerfile in $dir/Dockerfile*
 do
 	[ -e $dockerfile ] || (echo "ERROR: file not found $dockerfile"; exit 1)
+
 	dirname=$(dirname "$dockerfile")
 	filename=$(basename "$dockerfile")
 	args="--pull -f $dockerfile $basebuildargs"

@@ -61,7 +61,7 @@ stages:
   - build
   - manifests
 
-variables
+variables:
   DOCKER_TLS_CERTDIR: "/certs"
 
 default:

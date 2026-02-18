@@ -1,0 +1,56 @@
+ARG MAINTAINER
+ARG DEBIAN_RELEASE=stable
+FROM debian:$DEBIAN_RELEASE-slim
+MAINTAINER $MAINTAINER
+ARG DEBIAN_RELEASE
+ARG GPG_USER=gpg
+
+# install gnupg from the upstream repository
+# (see https://www.gnupg.org/blog/20250827-new-repository.html)
+RUN apt-get update \
+&& apt-get install -y --no-install-recommends \
+  ca-certificates \
+  gnupg \
+  pinentry-tty \
+  openssl \
+  curl \
+  vim \
+  secure-delete \
+&& export DEBIAN_CODENAME=$(curl -sf https://deb.debian.org/debian/dists/$DEBIAN_RELEASE/Release | grep ^Codename: | cut -d: -f2 | xargs) \
+&& curl -fsSL https://repos.gnupg.org/deb/gnupg/${DEBIAN_CODENAME}/gnupg-signing-key.gpg \
+  | gpg --dearmor --yes --output /usr/share/keyrings/gnupg-keyring.gpg \
+&& chmod a+r /usr/share/keyrings/gnupg-keyring.gpg \
+&& echo "Types: deb\n\
+URIs: https://repos.gnupg.org/deb/gnupg/${DEBIAN_CODENAME}/\n\
+Suites: ${DEBIAN_CODENAME}\n\
+Components: main\n\
+Signed-By: /usr/share/keyrings/gnupg-keyring.gpg\n" \
+  > /etc/apt/sources.list.d/gnupg.sources \
+&& cat /etc/apt/sources.list.d/gnupg.sources \
+&& apt-get update \
+&& apt-get install -y --no-install-recommends -t ${DEBIAN_CODENAME} \
+  gnupg \
+  gnupg-agent \
+  scdaemon \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
+
+# create dedicated user
+RUN useradd \
+  --user-group \
+  --create-home \
+  --home-dir=/home/$GPG_USER \
+  --shell=/bin/bash \
+  $GPG_USER
+
+# create GnuPG home dir and copy default config file
+RUN mkdir -p /home/$GPG_USER/.gnupg/ \
+    && chmod 700 /home/$GPG_USER/.gnupg/
+COPY gpg.conf /home/$GPG_USER/.gnupg/
+RUN chmod 600 /home/$GPG_USER/.gnupg/gpg.conf
+RUN chown -R $GPG_USER:$GPG_USER /home/$GPG_USER/.gnupg/
+
+USER $GPG_USER
+WORKDIR /home/$GPG_USER
+
+CMD ["/bin/bash","--login","-i"]

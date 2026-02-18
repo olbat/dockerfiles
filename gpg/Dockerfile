@@ -2,27 +2,38 @@ ARG BASE_TAG
 ARG MAINTAINER
 FROM debian:$BASE_TAG-slim
 MAINTAINER $MAINTAINER
+ARG GPG_USER=gpguser
 
 RUN apt-get update \
-&& apt-get install -y \
+&& apt-get install -y --no-install-recommends \
   gnupg \
   gnupg-agent \
+  ca-certificates \
   pinentry-tty \
   scdaemon \
   openssl \
-  git \
+  curl \
+  vim \
   secure-delete \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
-# Copy GnuPG default's configuration file
-COPY gpg.conf /etc/gnupg/gpgconf.conf
-RUN mkdir -p /root/.gnupg \
-&& chmod 700 /root/.gnupg
-COPY gpg.conf /root/.gnupg/
-RUN chmod 600 /root/.gnupg/gpg.conf
+# create dedicated user
+RUN useradd \
+  --user-group \
+  --create-home \
+  --home-dir=/home/$GPG_USER \
+  --shell=/bin/bash \
+  $GPG_USER
 
-WORKDIR /root
-VOLUME "/root/.gnupg/"
-RUN chsh -s /bin/bash
+# create GnuPG home dir and copy default config file
+RUN mkdir -p /home/$GPG_USER/.gnupg/ \
+    && chmod 700 /home/$GPG_USER/.gnupg/
+COPY gpg.conf /home/$GPG_USER/.gnupg/
+RUN chmod 600 /home/$GPG_USER/.gnupg/gpg.conf
+RUN chown -R $GPG_USER:$GPG_USER /home/$GPG_USER/.gnupg/
+
+USER $GPG_USER
+WORKDIR /home/$GPG_USER
+
 CMD ["/bin/bash","--login","-i"]

@@ -40,6 +40,7 @@ RUN apt-get update \
   printer-driver-sag-gdi \
   printer-driver-splix \
   printer-driver-cups-pdf \
+  printer-driver-gutenprint \
   smbclient \
   avahi-utils \
 && apt-get clean \

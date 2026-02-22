@@ -9,7 +9,9 @@ set -x
 . build.env
 
 basebuildargs="--build-arg BASE_USER=$BASE_USER"
-basebuildargs+=" --build-arg MAINTAINER=$MAINTAINER"
+basebuildargs+=" --build-arg MAINTAINER_LABEL=$MAINTAINER_LABEL"
+basebuildargs+=" --build-arg SOURCE_URL_LABEL=$SOURCE_URL_LABEL"
+basebuildargs+=" --build-arg REPO_URL_LABEL=$REPO_URL_LABEL"
 user=${BUILD_USER:-olbat}
 dir=${IMAGE:-*}
 dir=${dir%/}
@@ -21,6 +23,8 @@ function build_and_push_docker_image {
 	local buildargs=$4
 
 	buildargs+=" --build-arg BASE_TAG=$tag"
+	buildargs+=" --build-arg IMAGE_URL_LABEL=https://hub.docker.com/r/$imagename"
+	buildargs+=" --build-arg DOCUMENTATION_URL_LABEL=$REPO_URL_LABEL/blob/master/$dirname/README.md"
 
 	timeout 300 docker build $buildargs -t $imagename:$tag $dirname/
 

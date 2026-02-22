@@ -5,9 +5,13 @@ USER root
 RUN mkdir -p /tmp/rootdir/usr/bin/
 RUN cp -Lp \
 	/usr/bin/gpg \
+	/usr/bin/gpgconf \
 	/usr/bin/dirmngr \
 	/usr/bin/gpg-agent \
+	/usr/lib/gnupg/scdaemon \
 	/usr/bin/pinentry \
+	/bin/bash \
+	/usr/bin/srm \
 	/tmp/rootdir/usr/bin/
 
 RUN mkdir -p /tmp/rootdir/lib/
@@ -16,6 +20,7 @@ RUN cp -Lp \
 	/lib/x86_64-linux-gnu/libassuan.so.9  \
 	/lib/x86_64-linux-gnu/libbz2.so.1.0  \
 	/lib/x86_64-linux-gnu/libc.so.6  \
+	/lib/x86_64-linux-gnu/libcap.so.2  \
 	/lib/x86_64-linux-gnu/libcrypto.so.3  \
 	/lib/x86_64-linux-gnu/libffi.so.8  \
 	/lib/x86_64-linux-gnu/libgcrypt.so.20  \
@@ -37,7 +42,9 @@ RUN cp -Lp \
 	/lib/x86_64-linux-gnu/libssl.so.3  \
 	/lib/x86_64-linux-gnu/libtasn1.so.6  \
 	/lib/x86_64-linux-gnu/libtinfo.so.6  \
+	/lib/x86_64-linux-gnu/libudev.so.1  \
 	/lib/x86_64-linux-gnu/libunistring.so.5  \
+	/lib/x86_64-linux-gnu/libusb-1.0.so.0  \
 	/lib/x86_64-linux-gnu/libz.so.1  \
 	/lib/x86_64-linux-gnu/libzstd.so.1  \
 	/tmp/rootdir/lib/
@@ -50,6 +57,10 @@ RUN mkdir -p `dirname /tmp/rootdir/etc/group` \
 	&& cp -rLp /etc/group /tmp/rootdir/etc/group
 RUN mkdir -p `dirname /tmp/rootdir/etc/shadow` \
 	&& cp -rLp /etc/shadow /tmp/rootdir/etc/shadow
+RUN mkdir -p `dirname /tmp/rootdir/usr/lib/gnupg/scdaemon` \
+	&& cp -rLp /usr/lib/gnupg/scdaemon /tmp/rootdir/usr/lib/gnupg/scdaemon
+RUN mkdir -p `dirname /tmp/rootdir/etc/ssl/certs/ca-certificates.crt` \
+	&& cp -rLp /etc/ssl/certs/ca-certificates.crt /tmp/rootdir/etc/ssl/certs/ca-certificates.crt
 RUN mkdir -p `dirname /tmp/rootdir/home/gpg/.gnupg` \
 	&& cp -rLp /home/gpg/.gnupg /tmp/rootdir/home/gpg/.gnupg
 

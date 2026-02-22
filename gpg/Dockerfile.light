@@ -3,7 +3,7 @@ FROM olbat/gpg:stable AS base
 USER root
 
 RUN mkdir -p /tmp/rootdir/usr/bin/
-RUN cp -L \
+RUN cp -Lp \
 	/usr/bin/gpg \
 	/usr/bin/dirmngr \
 	/usr/bin/gpg-agent \
@@ -12,7 +12,7 @@ RUN cp -L \
 
 RUN mkdir -p /tmp/rootdir/lib/
 
-RUN cp -L \
+RUN cp -Lp \
 	/lib/x86_64-linux-gnu/libassuan.so.9  \
 	/lib/x86_64-linux-gnu/libbz2.so.1.0  \
 	/lib/x86_64-linux-gnu/libc.so.6  \
@@ -42,16 +42,16 @@ RUN cp -L \
 	/lib/x86_64-linux-gnu/libzstd.so.1  \
 	/tmp/rootdir/lib/
 
-RUN install -D /lib64/ld-linux-x86-64.so.2  /tmp/rootdir/lib64/ld-linux-x86-64.so.2
+RUN install -D /lib64/ld-linux-x86-64.so.2  /tmp/rootdir/lib64/ld-linux-x86-64.so.2 
 
 RUN mkdir -p `dirname /tmp/rootdir/etc/passwd` \
-	&& cp -rL /etc/passwd /tmp/rootdir/etc/passwd
+	&& cp -rLp /etc/passwd /tmp/rootdir/etc/passwd
 RUN mkdir -p `dirname /tmp/rootdir/etc/group` \
-	&& cp -rL /etc/group /tmp/rootdir/etc/group
+	&& cp -rLp /etc/group /tmp/rootdir/etc/group
 RUN mkdir -p `dirname /tmp/rootdir/etc/shadow` \
-	&& cp -rL /etc/shadow /tmp/rootdir/etc/shadow
+	&& cp -rLp /etc/shadow /tmp/rootdir/etc/shadow
 RUN mkdir -p `dirname /tmp/rootdir/home/gpg/.gnupg` \
-	&& cp -rL /home/gpg/.gnupg /tmp/rootdir/home/gpg/.gnupg
+	&& cp -rLp /home/gpg/.gnupg /tmp/rootdir/home/gpg/.gnupg
 
 
 FROM scratch
@@ -66,5 +66,7 @@ LABEL org.opencontainers.image.authors="$MAINTAINER_LABEL" \
       org.opencontainers.image.licenses="GPL-3.0-only"
 
 COPY --from=0 /tmp/rootdir/ /
+
+USER gpg
 
 CMD ["/usr/bin/gpg"]

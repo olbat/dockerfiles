@@ -1,5 +1,7 @@
 FROM olbat/gpg:stable AS base
 
+USER root
+
 RUN mkdir -p /tmp/rootdir/usr/bin/
 RUN cp -L \
 	/usr/bin/gpg \
@@ -40,7 +42,7 @@ RUN cp -L \
 	/lib/x86_64-linux-gnu/libzstd.so.1  \
 	/tmp/rootdir/lib/
 
-RUN install -D /lib64/ld-linux-x86-64.so.2  /tmp/rootdir/lib64/ld-linux-x86-64.so.2 
+RUN install -D /lib64/ld-linux-x86-64.so.2  /tmp/rootdir/lib64/ld-linux-x86-64.so.2
 
 RUN mkdir -p `dirname /tmp/rootdir/etc/passwd` \
 	&& cp -rL /etc/passwd /tmp/rootdir/etc/passwd
@@ -48,10 +50,8 @@ RUN mkdir -p `dirname /tmp/rootdir/etc/group` \
 	&& cp -rL /etc/group /tmp/rootdir/etc/group
 RUN mkdir -p `dirname /tmp/rootdir/etc/shadow` \
 	&& cp -rL /etc/shadow /tmp/rootdir/etc/shadow
-RUN mkdir -p `dirname /tmp/rootdir/etc/gnupg` \
-	&& cp -rL /etc/gnupg /tmp/rootdir/etc/gnupg
-RUN mkdir -p `dirname /tmp/rootdir/root/.gnupg` \
-	&& cp -rL /root/.gnupg /tmp/rootdir/root/.gnupg
+RUN mkdir -p `dirname /tmp/rootdir/home/gpg/.gnupg` \
+	&& cp -rL /home/gpg/.gnupg /tmp/rootdir/home/gpg/.gnupg
 
 
 FROM scratch
@@ -63,9 +63,7 @@ LABEL org.opencontainers.image.authors="$MAINTAINER_LABEL" \
       org.opencontainers.image.source="$SOURCE_URL_LABEL" \
       org.opencontainers.image.documentation="$DOCUMENTATION_URL_LABEL" \
       org.opencontainers.image.url="$IMAGE_URL_LABEL" \
-      org.opencontainers.image.licenses="GPL-3.0-only" \
-      org.opencontainers.image.title="GnuPG image" \
-      org.opencontainers.image.description="Docker image including GnuPG and some tools installed from the Debian package."
+      org.opencontainers.image.licenses="GPL-3.0-only"
 
 COPY --from=0 /tmp/rootdir/ /
 

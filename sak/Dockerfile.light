@@ -1,5 +1,7 @@
 FROM olbat/sak AS base
 
+USER root
+
 RUN mkdir -p /tmp/rootdir/bin/
 RUN cp -L \
 	/bin/bash \
@@ -266,9 +268,7 @@ LABEL org.opencontainers.image.authors="$MAINTAINER_LABEL" \
       org.opencontainers.image.source="$SOURCE_URL_LABEL" \
       org.opencontainers.image.documentation="$DOCUMENTATION_URL_LABEL" \
       org.opencontainers.image.url="$IMAGE_URL_LABEL" \
-      org.opencontainers.image.licenses="GPL-3.0-only" \
-      org.opencontainers.image.title="Swiss Army Knife image" \
-      org.opencontainers.image.description="Docker image including a collection of Unix tools."
+      org.opencontainers.image.licenses="GPL-3.0-only"
 
 COPY --from=0 /tmp/rootdir/ /
 

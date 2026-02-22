@@ -16,6 +16,8 @@ ROOT_DIR=${ROOT_DIR:-/tmp/rootdir}
 cat <<EOF
 FROM $BASEIMAGE AS base
 
+USER root
+
 RUN mkdir -p $ROOT_DIR$EXECUTABLES_DESTINATION
 RUN cp -L \\
 $(echo -n $EXECUTABLES | sed -e 's:/\(.*\)\[:/\1[[]:g' | xargs -d' ' -n1 -I{} echo -e "\t{} \\")
@@ -48,10 +50,10 @@ ARG MAINTAINER_LABEL
 ARG SOURCE_URL_LABEL
 ARG IMAGE_URL_LABEL
 ARG DOCUMENTATION_URL_LABEL
-LABEL org.opencontainers.image.authors="\$MAINTAINER_LABEL" \
-      org.opencontainers.image.source="\$SOURCE_URL_LABEL" \
-      org.opencontainers.image.documentation="\$DOCUMENTATION_URL_LABEL" \
-      org.opencontainers.image.url="\$IMAGE_URL_LABEL" \
+LABEL org.opencontainers.image.authors="\$MAINTAINER_LABEL" \\
+      org.opencontainers.image.source="\$SOURCE_URL_LABEL" \\
+      org.opencontainers.image.documentation="\$DOCUMENTATION_URL_LABEL" \\
+      org.opencontainers.image.url="\$IMAGE_URL_LABEL" \\
       org.opencontainers.image.licenses="GPL-3.0-only"
 
 COPY --from=0 $ROOT_DIR/ /

@@ -11,7 +11,7 @@ LABEL org.opencontainers.image.authors="$MAINTAINER_LABEL" \
       org.opencontainers.image.licenses="GPL-3.0-only" \
       org.opencontainers.image.title="GnuPG image" \
       org.opencontainers.image.description="Docker image including GnuPG and some tools installed from the Debian package."
-ARG GPG_USER=gpguser
+ARG GPG_USER=gpg
 
 RUN apt-get update \
 && apt-get install -y --no-install-recommends \

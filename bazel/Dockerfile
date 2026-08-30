@@ -17,7 +17,7 @@ RUN apt-get update \
   gpg \
   curl \
   default-jdk \
-&& curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > /usr/share/keyrings/bazel-archive-keyring.gpg \
+&& curl -fsSL https://storage.googleapis.com/bazel-apt/doc/apt-key.pub.gpg | gpg --dearmor > /usr/share/keyrings/bazel-archive-keyring.gpg \
 && echo "deb [signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] http://storage.googleapis.com/bazel-apt stable jdk1.8" \
   > /etc/apt/sources.list.d/bazel.list \
 && apt-get update \

@@ -10,13 +10,15 @@ LABEL org.opencontainers.image.authors="$MAINTAINER_LABEL" \
       org.opencontainers.image.licenses="GPL-3.0-only" \
       org.opencontainers.image.title="CUPS print server image" \
       org.opencontainers.image.description="Docker image including CUPS print server and printing drivers installed from the Debian packages."
+ENV LPADMIN_USER="print"
+ENV LPADMIN_PASSWORD="print"
 
 # Install Packages (basic tools, cups, basic drivers, HP drivers).
 # See https://wiki.debian.org/CUPSDriverlessPrinting,
 #     https://wiki.debian.org/CUPSPrintQueues
 #     https://wiki.debian.org/CUPSQuickPrintQueues
 # Note: printer-driver-all has been removed from Debian testing,
-#       therefore printer-driver-* packages are manuall added.
+#       therefore printer-driver-* packages are manually added.
 RUN apt-get update \
 && apt-get install -y \
   sudo \
@@ -57,18 +59,12 @@ RUN apt-get update \
 # This will use port 631
 EXPOSE 631
 
-# Add user and disable sudo password checking
-RUN useradd \
-  --groups=sudo,lp,lpadmin \
-  --create-home \
-  --home-dir=/home/print \
-  --shell=/bin/bash \
-  --password=$(mkpasswd print) \
-  print \
-&& sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
+# 
+RUN sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
 
 # Copy the default configuration file
 COPY --chown=root:lp cupsd.conf /etc/cups/cupsd.conf
+COPY entrypoint.sh /entrypoint.sh
 
 # Default shell
-CMD ["/usr/sbin/cupsd", "-f"]
+ENTRYPOINT ["/entrypoint.sh"]

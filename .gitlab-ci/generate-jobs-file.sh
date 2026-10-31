@@ -5,7 +5,9 @@ set -euo pipefail
 . build.env
 multi_platform_images=()
 buildargs="--build-arg BASE_USER=$BASE_USER"
-buildargs+=" --build-arg MAINTAINER=$MAINTAINER"
+buildargs+=" --build-arg MAINTAINER_LABEL=$MAINTAINER_LABEL"
+buildargs+=" --build-arg SOURCE_URL_LABEL=$SOURCE_URL_LABEL"
+buildargs+=" --build-arg REPO_URL_LABEL=$REPO_URL_LABEL"
 user=${BUILD_USER:-olbat}
 
 
@@ -89,14 +91,18 @@ do
 	filename=$(basename "$dockerfile")
 	args="$buildargs "
 
+	args+=" --build-arg IMAGE_URL_LABEL=https://hub.docker.com/r/${user}/${dirname}"
+	args+=" --build-arg DOCUMENTATION_URL_LABEL=$REPO_URL_LABEL/blob/master/${dirname}/README.md"
+
 	if [ -f $dirname/tags.env -a $filename == "Dockerfile" ]
 	then
 		BASE_TAGS=
 		. $dirname/tags.env
 		for tag in $BASE_TAGS
 		do
-			args+=" --build-arg BASE_TAG=$tag"
 			image=${user}/${dirname}:${tag}
+
+			args+=" --build-arg BASE_TAG=$tag"
 
 			if $multi_platform; then
 				generate_job "$dirname"/ "$dockerfile" "$image" "$args" "amd64"
@@ -109,8 +115,10 @@ do
 	else
 		tag=${filename##*.}
 		[ "$filename" == "$tag" ] && tag=latest # no file extension
-	        args+=" --build-arg BASE_TAG=$tag"
+
 		image=${user}/${dirname}:${tag}
+
+		args+=" --build-arg BASE_TAG=$tag"
 
 		if $multi_platform; then
 			generate_job "$dirname"/ "$dockerfile" "$image" "$args" "amd64"

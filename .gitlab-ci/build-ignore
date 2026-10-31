@@ -3,3 +3,7 @@ nodejs/Dockerfile
 jsonresume/Dockerfile
 uncss/Dockerfile
 uglify/Dockerfile
+libreoffice/Dockerfile
+libreoffice/Dockerfile.i18n
+debian-pkg/Dockerfile
+pandoc/Dockerfile

@@ -49,9 +49,9 @@ RUN apt-get update \
   printer-driver-sag-gdi \
   printer-driver-splix \
   printer-driver-cups-pdf \
-  printer-driver-gutenprint \
   smbclient \
   avahi-utils \
+&& apt-get install -y printer-driver-gutenprint || echo "printer-driver-gutenprint not available, skipping" \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 

@@ -51,6 +51,7 @@ RUN apt-get update \
   printer-driver-cups-pdf \
   smbclient \
   avahi-utils \
+&& apt-get install -y printer-driver-gutenprint || echo "printer-driver-gutenprint not available, skipping" \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 

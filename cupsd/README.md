@@ -19,6 +19,16 @@ __Note__: the following mount can be added to configure a printer connected thro
 __Note (bis)__: if the daemon fails to start with a `cupsdDoSelect() failed` error, you can fix the issue by adjusting the container's `ulimit` configuration, see https://github.com/olbat/dockerfiles/issues/111#issuecomment-2529393079
 
 
+## presswork variant
+[Dockerfile.presswork](Dockerfile.presswork) builds the same image on top of [presswork](https://github.com/vindeckyy/presswork), a memory-safe drop-in replacement for the CUPS daemon written in Rust (Apache-2.0 OR MIT). Same `cupsd.conf` format, same port, same `print`/`print` admin user - only the spooler implementation differs.
+
+```bash
+docker build -f cupsd/Dockerfile.presswork -t presswork-cupsd cupsd/
+docker run -d -p 631:631 --name cupsd presswork-cupsd
+```
+
+presswork passes the upstream `ipptool` conformance matrix (34/0/1) and the upstream `test/5.x` client suite (34/34); documented deviations live in its `docs/deviations.md`.
+
 ## Add printers to the Cups server
 1. Connect to the Cups server at [http://127.0.0.1:631](http://127.0.0.1:631)
 2. Add printers: Administration > Printers > Add Printer
